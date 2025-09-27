@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Navbar.css'; // Optional extra CSS for underline effect
+import '/styles/Navbar.css';
 
 export default function Navbar() {
   return (
@@ -20,7 +20,7 @@ export default function Navbar() {
                 Home
               </NavLink>
             </li>
-                        <li className="nav-item">
+            <li className="nav-item">
               <NavLink
                 to="/uploadfile"
                 className={({ isActive }) =>

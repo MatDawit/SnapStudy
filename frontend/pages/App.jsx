@@ -1,8 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Archives from './Archives';
-import Navbar from './Navbar';
-import './App.css';
+import Navbar from '../components/Navbar';
+import UploadFile from '../UploadFile';
+import '../styles/App.css';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/archives" element={<Archives />} />
+          <Route path="/uploadfile" element={<UploadFile />} />
         </Routes>
       </main>
 
