@@ -65,13 +65,44 @@ Here is the lecture JSON to base the quiz on:
 """
 # practice with model to make sure it can generate omehtinf
 my_model = genai.GenerativeModel(MODEL)
-response = my_model.generate_content(prompt)
-quiz = response.text
 
-with open('q_a/calculus.json','w') as f:
-  data = json.dump(quiz, f, indent=2)
+response = my_model.generate_content(prompt)
+# function to strip extra fences
+
+def stripText(s):
+    s = s.strip()
+
+    # chop opening fence
+    if s.startswith("```"):
+        first_newline = s.find("\n")
+        if first_newline != -1:
+            s = s[first_newline+1:].lstrip()
+        else:
+            s = ""
+
+    # chop closing fence
+    if s.endswith("```"):
+        last_fence = s.rfind("```")
+        s = s[:last_fence].rstrip()
+
+    # print to terminal
+    print("Cleaned JSON:\n", s)
+    return s
+
+
+clean = stripText(response.text)
+quiz = json.loads(clean)
+
+with open("q_a/calculus.json", "w", encoding="utf-8") as f:
+    for line in clean.splitlines():
+        f.write(line.rstrip() + "\n")
+
+print("✅ Saved cleaned JSON text exactly as returned")
 
 print("Model Output\n")
 print(response.text)
 print("Metadata\n") # don't worry about it i just want to see how gemini is tokenizing on sum nerd shi
 print(response.usage_metadata)
+
+
+

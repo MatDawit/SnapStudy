@@ -1,1 +1,25 @@
-"```json\n{\n  \"deck_title\": \"Calculus I \u00b7 Limits and Derivatives\",\n  \"qa_pairs\": [\n    {\n      \"practice_question\": \"What does the concept of a limit describe in calculus?\",\n      \"answer\": \"A limit describes the value a function approaches as the input approaches some number; it formalizes the idea of 'approaching'.\"\n    },\n    {\n      \"practice_question\": \"What are one-sided limits and what must be true for a two-sided limit to exist?\",\n      \"answer\": \"One-sided limits examine the behavior of a function as the input approaches a number from the left or right. For a two-sided limit to exist, both one-sided limits must agree.\"\n    },\n    {\n      \"practice_question\": \"What are the three conditions for a function to be continuous at a point?\",\n      \"answer\": \"A function is continuous at a point if it is defined at that point, the limit exists at that point, and the function's value equals that limit.\"\n    },\n    {\n      \"practice_question\": \"What is the formal definition of the derivative of a function f(x)?\",\n      \"answer\": \"The derivative f'(x) is defined as the limit of [f(x+h) - f(x)]/h as h approaches 0, which represents the instantaneous rate of change.\"\n    },\n    {\n      \"practice_question\": \"How can the derivative be interpreted geometrically?\",\n      \"answer\": \"The derivative can be interpreted as the slope of the tangent line to the curve of the function at a particular point.\"\n    }\n  ]\n}\n```"
+{
+  "deck_title": "Calculus I · Limits and Derivatives",
+  "qa_pairs": [
+    {
+      "practice_question": "What is the fundamental concept that the idea of a limit describes?",
+      "answer": "A limit describes the value a function approaches as the input approaches some number; essentially what value is 'targeted'."
+    },
+    {
+      "practice_question": "What condition must be met for a two-sided limit to exist?",
+      "answer": "For a two-sided limit to exist, the one-sided limit from the left and the one-sided limit from the right must both exist and be equal."
+    },
+    {
+      "practice_question": "What are the three conditions that a function must satisfy to be continuous at a point?",
+      "answer": "A function must be defined at the point, the limit must exist at that point, and the function's value must equal the limit at that point."
+    },
+    {
+      "practice_question": "Provide the formal limit definition of the derivative f'(x).",
+      "answer": "The derivative is defined as f'(x) = lim (h->0) [f(x+h) - f(x)] / h; it is the limit of the difference quotient."
+    },
+    {
+      "practice_question": "How can the derivative of a function at a point be geometrically interpreted?",
+      "answer": "The derivative at a point is the slope of the tangent line to the function's graph at that point, representing the instantaneous rate of change."
+    }
+  ]
+}
