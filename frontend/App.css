@@ -1,0 +1,59 @@
+/* App.css */
+
+/* Base page styling */
+.cover-page {
+  background-color: #333;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+a,
+a:focus,
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Header */
+.masthead-brand {
+  font-weight: bold;
+}
+
+.masthead-nav .nav-link {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+  border-bottom: 2px solid transparent;
+}
+
+.masthead-nav .nav-link:hover,
+.masthead-nav .nav-link:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.masthead-nav .nav-link.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Cover content */
+.cover-heading {
+  margin-bottom: 20px;
+}
+
+.cover .lead {
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn-light {
+  color: #333;
+  font-weight: bold;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+.btn-light:hover,
+.btn-light:focus {
+  color: #333;
+  background-color: #f8f9fa;
+  border-color: #fff;
+}

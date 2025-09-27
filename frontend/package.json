@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "private": true,
-  "main": "src/main.js",
+  "main": "src/index.jsx",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -14,10 +14,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "vue": "^3.5.22"
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.1",
+    "sass": "^1.93.2",
     "vite": "^7.1.7"
   }
 }
