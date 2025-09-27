@@ -1,11 +1,15 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
-import './App.css';               // Your custom CSS
-import 'bootstrap/dist/css/bootstrap.min.css';  // Bootstrap 5 CSS
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { HashRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </React.StrictMode>
 );

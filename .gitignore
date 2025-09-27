@@ -1,2 +1,26 @@
+# Node modules
+node_modules/
+
+# Vite build output
+dist/
+
+# Environment files
 .env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# Optional: local venv if you keep Python projects in the same repo
 .venv/
