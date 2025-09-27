@@ -2,7 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Archives from './Archives';
 import Navbar from '../components/Navbar';
-import UploadFile from '../UploadFile';
+import UploadFile from './UploadFile';
+import About from './About';
 import '../styles/App.css';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/archives" element={<Archives />} />
           <Route path="/uploadfile" element={<UploadFile />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
 
