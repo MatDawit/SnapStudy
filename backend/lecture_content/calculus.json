@@ -1,0 +1,20 @@
+{
+  "deck_title": "Calculus I: Limits and Derivatives",
+  "topics": [
+    {
+      "summary_text": "The concept of a limit describes the value a function approaches as the input approaches some number. It formalizes the idea of approaching but not necessarily reaching a point."
+    },
+    {
+      "summary_text": "One-sided limits focus on the behavior of a function as the input approaches a number from the left or from the right. If both sides agree, the two-sided limit exists."
+    },
+    {
+      "summary_text": "The definition of continuity requires that a function be defined at a point, the limit exists at that point, and the function’s value equals that limit."
+    },
+    {
+      "summary_text": "The derivative measures instantaneous rate of change. Formally it is defined as f’(x) = lim(h→0)[f(x+h) – f(x)] / h."
+    },
+    {
+      "summary_text": "Derivatives can be interpreted as the slope of the tangent line to a curve at a point, representing how steeply the function is changing."
+    }
+  ]
+}
