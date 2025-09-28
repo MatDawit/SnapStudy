@@ -60,19 +60,6 @@ export default function UploadFile() {
       // Save for immediate study (sessionStorage)
       sessionStorage.setItem("lastDeck", JSON.stringify(deckArray));
 
-      // Save to localStorage for archives
-      const savedDecks = JSON.parse(localStorage.getItem("savedDecks") || "[]");
-
-      // Avoid duplicates: check if slug already exists
-      if (!savedDecks.some(d => d.slug === deckSlug)) {
-        savedDecks.push({
-          name: deckName,
-          date: new Date().toISOString(),
-          cards: deckArray,
-          slug: deckSlug
-        });
-        localStorage.setItem("savedDecks", JSON.stringify(savedDecks));
-      }
 
       setStatus("Upload successful! Redirecting...");
       navigate('/flashcards', { state: { deck: deckArray, deck_title: deckName } });

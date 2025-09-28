@@ -1,0 +1,38 @@
+{
+  "deck_title": "CMSC202 Â· Linked Lists",
+  "topics": [
+    {
+      "summary_text": "Linked lists are dynamic data structures that allow easy insertion/deletion. They consist of nodes, each holding data and a pointer to the next node."
+    },
+    {
+      "summary_text": "Vectors use contiguous memory, making insertion/deletion slower. Linked lists only require memory for each node, allowing for efficient insertion/deletion anywhere."
+    },
+    {
+      "summary_text": "Advantages: Flexible size, easy insertion/deletion. Disadvantages: No random access, requires memory management for nodes, uses extra memory for pointers."
+    },
+    {
+      "summary_text": "Nodes are the building blocks, containing data and a pointer (m_next) to the subsequent node in the list. The last node's pointer is typically set to nullptr."
+    },
+    {
+      "summary_text": "Careful memory management is crucial. Treat the linked list like a train; losing track of pointers can cause memory leaks. Consider special cases: empty list, single element, first/last node changes."
+    },
+    {
+      "summary_text": "Essential functions include constructor, insert(), remove(), printList(), and isEmpty(). The constructor initializes the head pointer to nullptr."
+    },
+    {
+      "summary_text": "Insertion involves creating a new node, populating it with data, and linking it into the list. Insertion can occur at the beginning, end, or middle."
+    },
+    {
+      "summary_text": "To traverse a linked list, use a temporary node pointer starting at the head. Iterate through the list using a while loop, accessing data and moving the pointer to the next node."
+    },
+    {
+      "summary_text": "Removing a node requires careful pointer manipulation to avoid losing the list. Keep track of both the current and previous nodes during traversal to relink the list after removal."
+    },
+    {
+      "summary_text": "Dummy nodes (head and tail) simplify edge case handling (empty list, beginning/end). They don't store data but serve as markers, preventing errors and simplifying code."
+    },
+    {
+      "summary_text": "Reversing a linked list involves iterating through the list and updating each node's 'next' pointer to point to the previous node. Requires careful tracking of current, previous, and next nodes."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "deck_title": "CMSC202 Â· Linked Lists",
+  "qa_pairs": [
+    {
+      "practice_question": "What are linked lists and their purpose?",
+      "answer": "Dynamic data structures for easy insertion/deletion. Nodes hold data and point to the next."
+    },
+    {
+      "practice_question": "Why are linked lists insertion/deletion faster?",
+      "answer": "They only require memory for each node."
+    },
+    {
+      "practice_question": "What are the disadvantages of linked lists?",
+      "answer": "No random access, requires memory management, extra memory."
+    },
+    {
+      "practice_question": "What do nodes contain in a linked list?",
+      "answer": "Data and a pointer (m_next) to the next node."
+    },
+    {
+      "practice_question": "Why is memory management crucial in linked lists?",
+      "answer": "Losing track of pointers causes memory leaks."
+    },
+    {
+      "practice_question": "Name 3 essential linked list functions.",
+      "answer": "constructor, insert(), remove(), printList(), and isEmpty()."
+    },
+    {
+      "practice_question": "Describe the process of inserting a node.",
+      "answer": "Create a new node, populate data, link into the list."
+    },
+    {
+      "practice_question": "How do you traverse a linked list?",
+      "answer": "Use a temp node pointer, iterate with while loop."
+    },
+    {
+      "practice_question": "Why must removal be done carefully?",
+      "answer": "To avoid losing the list after node removal."
+    },
+    {
+      "practice_question": "Why use dummy nodes (head and tail)?",
+      "answer": "Simplify edge case handling (empty list, beginning/end)."
+    },
+    {
+      "practice_question": "How do you reverse a linked list?",
+      "answer": "Update each node's 'next' pointer to the previous."
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "deck_title": "CMSC202 Â· Introduction and C++ Primer",
+  "topics": [
+    {
+      "summary_text": "CMSC 202 uses Blackboard, YouTube, and Discord (for office hours/tutoring). Discord allows screen sharing for debugging. The computer lab is ITE 240, and an invitation to the Discord server will be emailed."
+    },
+    {
+      "summary_text": "CMSC 202 is the second course in the programming sequence, following CMSC 201 and preceding CMSC 341. CMSC majors need a B or better, and CMPE majors need a C or better to pass. Only two attempts are allowed."
+    },
+    {
+      "summary_text": "Students cannot retake a class after taking its successor. CMSC majors with a C in 201 must retake it before this class. Only two attempts are allowed in CMSC 201 or 202, including withdrawals."
+    },
+    {
+      "summary_text": "Labs are worth 100 points total, with the best 10 of 13 labs counted. Labs 2-13 have prelab quizzes worth 4 points, due Mondays at 10am. Labs are worth 6 points, with TA support on Discord during scheduled times."
+    },
+    {
+      "summary_text": "There's no in-person lab this week or next. Lab 1 is online, released this weekend, due February 9th on GL. Lab 2's prelab quiz opens February 7th, closes February 10th. In-person lab 2 is Feb 10-13."
+    },
+    {
+      "summary_text": "The course syllabus covers grading criteria, policies (attendance, communication, academic integrity), and Blackboard use."
+    },
+    {
+      "summary_text": "Development will be on GL Linux systems using GCC.  Students should become familiar with Linux and shell usage and use a text editor like Emacs. Programs must compile and run correctly on GL, even if IDEs are used."
+    },
+    {
+      "summary_text": "This course introduces object-oriented programming (OOP) and design (OOD), basic software engineering, and proper program design using C++, GCC, and Linux (GL system)."
+    },
+    {
+      "summary_text": "Challenges include adjusting to Linux, starting projects early, and seeking help promptly. CMSC 202 is more difficult than 201; self-sufficiency and practice outside projects are essential."
+    },
+    {
+      "summary_text": "The course will cover the differences between Python and C++ (interpreted vs. compiled) and the basics of C++ including classes and object-oriented programming."
+    },
+    {
+      "summary_text": "C++ is a popular, modern, object-oriented language widely used in industry. It's portable (fairly), efficient, retains C origins, and is object-oriented."
+    },
+    {
+      "summary_text": "Interpreted languages translate and execute code line by line. Compiled languages convert the entire source code to binary before execution. Java uses a hybrid approach with bytecode and a JVM."
+    },
+    {
+      "summary_text": "C++ source code is compiled into binary by a C++ compiler (specific to OS), then linked with libraries to create executable code."
+    },
+    {
+      "summary_text": "Key C++ syntax differences from Python include a `main()` function, semicolons at the end of statements, variable declarations, different `if/else` syntax, and statement blocks demarcated by `{}`."
+    },
+    {
+      "summary_text": "Procedural programming uses functions; data and operations are separate. OOP uses objects; data and operations are bound together."
+    },
+    {
+      "summary_text": "A class is a data type containing attributes (object's state) and operations (object's behaviors). An object is an instance of a class."
+    },
+    {
+      "summary_text": "C++ identifiers are case-sensitive, used for variables, functions, etc. Variables are named memory locations. In C++, data is declared before use with a specified type."
+    },
+    {
+      "summary_text": "Variables must be declared with a type and identifier before use (e.g., `int sum;`). Declaration allocates memory; initialization assigns a value during declaration (e.g., `double grade = 98;`)."
+    },
+    {
+      "summary_text": "Variable declaration tells the compiler when and where to allocate memory, how much memory, and how to interpret its contents (the data type), and assigns a name."
+    },
+    {
+      "summary_text": "When declaring a variable, memory is allocated, but not automatically set to 0. Initialize variables to avoid garbage data, like `int myValue = 0;`."
+    },
+    {
+      "summary_text": "The assignment operator (=) assigns values. Lvalues (left side) must be variables; Rvalues (right side) can be expressions. Example: distance = rate * time."
+    },
+    {
+      "summary_text": "Naming conventions improve readability, CMSC 202 has standards on Blackboard: lowercase start, uppercase for word boundaries, digits and lowercase letters (e.g., topSpeed). Variable names are case-sensitive."
+    },
+    {
+      "summary_text": "C++ has several simple data types, including int (integers), float/double (floating-point numbers), char (characters), and bool (true/false)."
+    },
+    {
+      "summary_text": "In C++, variables must be explicitly declared with a specific type, and that type cannot change during the program's execution. Data types must be compatible for assignment."
+    },
+    {
+      "summary_text": "Literals are constant values directly in the code (e.g., `2`, `5.75`, `'Z'`, `"Hello World\n"`). They cannot be changed during execution."
+    },
+    {
+      "summary_text": "Acknowledge course policy (10 pts) on Blackboard, due February 9th. Lab 1 (10 pts) is online, due February 9th on GL. No in-person lab or prelab quiz for Lab 1."
+    }
+  ]
+}

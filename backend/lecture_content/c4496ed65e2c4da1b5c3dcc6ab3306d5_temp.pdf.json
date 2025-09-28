@@ -1,0 +1,29 @@
+{
+  "deck_title": "CMSC202 Â· Polymorphism",
+  "topics": [
+    {
+      "summary_text": "Inheritance allows derived classes to use, replace, or extend base class functions. Polymorphism enables one function name to have many meanings through virtual functions and late binding."
+    },
+    {
+      "summary_text": "Virtual functions allow derived classes to override base class functions. Overloading allows a base class to implement functions with different signatures than the parent."
+    },
+    {
+      "summary_text": "A 'virtual' function in a base class must have an implementation. Child classes can override it. A 'pure virtual' function ( = 0) has no implementation in the base; child classes must implement it, making the base class abstract."
+    },
+    {
+      "summary_text": "Abstract classes contain pure virtual functions and can't be instantiated. They serve as base classes, ensuring derived classes implement specific functionalities."
+    },
+    {
+      "summary_text": "When calling a virtual function through a base class pointer, the actual function executed depends on the object's type. If a derived class doesn't override a virtual function, the base class version is called."
+    },
+    {
+      "summary_text": "Virtual function tables (vtables) are used for polymorphism. Classes with virtual functions, and their children, have vtables. A hidden pointer (__vptr) in each object points to its class's vtable, enabling runtime function resolution."
+    },
+    {
+      "summary_text": "Classes with virtual functions should declare virtual destructors to ensure the correct destructor is called in inheritance hierarchies. Virtual constructors don't exist because object construction requires complete type information."
+    },
+    {
+      "summary_text": "Live coding example demonstrates polymorphism with Animal classes (Bird, Cat, Dog) using Eat(), Speak(), and Perform() functions in a vector of Animal pointers."
+    }
+  ]
+}

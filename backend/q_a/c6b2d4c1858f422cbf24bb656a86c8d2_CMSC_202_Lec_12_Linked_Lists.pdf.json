@@ -1,0 +1,53 @@
+{
+  "deck_title": "CMSC202 Â· Linked Lists",
+  "qa_pairs": [
+    {
+      "practice_question": "What makes linked lists dynamic data structures?",
+      "answer": "Efficient insertion/deletion of elements. They use nodes with pointers."
+    },
+    {
+      "practice_question": "What memory characteristic is used by vectors?",
+      "answer": "Vectors use contiguous memory."
+    },
+    {
+      "practice_question": "What two elements does a linked list Node contain?",
+      "answer": "A Node contains data and a pointer to the next Node."
+    },
+    {
+      "practice_question": "To what does the last node point?",
+      "answer": "The last node in a linked list points to `nullptr`."
+    },
+    {
+      "practice_question": "Why is memory management important for linked lists?",
+      "answer": "To avoid losing nodes and memory leaks. Need to consider edge cases."
+    },
+    {
+      "practice_question": "List 3 essential linked list functions.",
+      "answer": "`insert()`, `remove()`, `printList()` are essential linked list functions."
+    },
+    {
+      "practice_question": "What is `m_head` initialized to in constructor?",
+      "answer": "`m_head` is initialized to `nullptr` in the constructor."
+    },
+    {
+      "practice_question": "Where can insertion occur in a linked list?",
+      "answer": "Insertion can occur at the beginning, end, or middle."
+    },
+    {
+      "practice_question": "How do you traverse a linked list?",
+      "answer": "Iterate using a temporary pointer that moves node to node."
+    },
+    {
+      "practice_question": "What happens to the memory of removed nodes?",
+      "answer": "The removed node's memory is then deallocated using delete."
+    },
+    {
+      "practice_question": "What edge-case problems do dummy nodes eliminate?",
+      "answer": "Dummy nodes eliminate edge cases like empty lists."
+    },
+    {
+      "practice_question": "What pointers are needed to reverse a linked list?",
+      "answer": "`curr`, `prev`, and `next` pointers are needed for reversing."
+    }
+  ]
+}

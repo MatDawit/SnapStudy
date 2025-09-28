@@ -1,0 +1,37 @@
+{
+  "deck_title": "CMSC202 Â· Polymorphism",
+  "qa_pairs": [
+    {
+      "practice_question": "What does polymorphism enable?",
+      "answer": "One function name having many meanings."
+    },
+    {
+      "practice_question": "How do derived classes override base functions?",
+      "answer": "Using virtual functions."
+    },
+    {
+      "practice_question": "What makes a base class abstract?",
+      "answer": "A pure virtual function (= 0)."
+    },
+    {
+      "practice_question": "Can abstract classes be instantiated?",
+      "answer": "No, they cannot."
+    },
+    {
+      "practice_question": "What determines virtual function execution through base pointers?",
+      "answer": "The object's actual type."
+    },
+    {
+      "practice_question": "What are virtual function tables (vtables) used for?",
+      "answer": "Runtime function resolution."
+    },
+    {
+      "practice_question": "Why are virtual destructors important?",
+      "answer": "Ensures correct destructor in hierarchies is called."
+    },
+    {
+      "practice_question": "Explain the Animal class polymorphism example.",
+      "answer": "Demonstrates polymorphism using Eat(), Speak(), Perform() with Animal pointers."
+    }
+  ]
+}
