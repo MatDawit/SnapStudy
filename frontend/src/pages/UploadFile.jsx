@@ -20,7 +20,7 @@ export default function UploadFile() {
       setLoading(true);
 
       try {
-          const response = await fetch("http://localhost:5000/api/upload", {
+          const response = await fetch("https://hackumbc2025.onrender.com/api/upload", {
               method: "POST",
               body: formData
           });
