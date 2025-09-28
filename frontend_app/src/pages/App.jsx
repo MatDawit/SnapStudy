@@ -42,9 +42,9 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mastfoot mt-auto py-3">
-        <div className="container">
-          <p>© HackUMBC 2025</p>
+      <footer className="mastfoot mt-auto py-3 bg-dark text-white">
+        <div className="container text-center small">
+          <p className="mb-0">© HackUMBC 2025</p>
         </div>
       </footer>
     </div>
