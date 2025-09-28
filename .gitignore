@@ -24,3 +24,5 @@ Thumbs.db
 
 # Optional: local venv if you keep Python projects in the same repo
 .venv/
+
+__pycache__/
