@@ -7,22 +7,26 @@ export default function FlashcardShare({ shareLink }) {
   const [status, setStatus] = useState("");
 
   const sendEmail = async () => {
-    if (!published || !email) {
-      setStatus("Please publish the set and enter an email.");
-      return;
-    }
+  if (!published || !email) {
+    setStatus("Please publish the set and enter an email.");
+    return;
+  }
 
-    setStatus("Sending...");
-    try {
-      const res = await fetch(`${process.env.FRONTEND_ORIGIN}/api/send-flashcard`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ to: email, link: shareLink }),
-      });
+  setStatus("Sending...");
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Failed to send email");
-      setStatus("Email sent successfully!");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL; // <- Render backend URL
+
+  try {
+    const res = await fetch(`${backendUrl}/api/send-flashcard`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ to: email, link: shareLink }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data?.error || "Failed to send email");
+    setStatus("Email sent successfully!");
     } catch (err) {
       console.error(err);
       setStatus("Failed to send email. Try again later.");
