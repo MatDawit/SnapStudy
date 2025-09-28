@@ -19,7 +19,7 @@ export default function FlashcardShare({ shareLink }) {
     const backendUrl = process.env.REACT_APP_BACKEND_URL; // <- Render backend URL
 
     try {
-      const res = await fetch(`${backendUrl}/api/send-flashcard`, {
+      const res = await fetch(`https://hackumbc2025.onrender.com/api/send-flashcard`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ to: email, link: shareLink }),
