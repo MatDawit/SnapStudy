@@ -1,0 +1,85 @@
+{
+  "deck_title": "Chemistry 101 · Practice Quiz",
+  "qa_pairs": [
+    {
+      "practice_question": "What are the two classifications of matter?",
+      "answer": "Pure substances and mixtures."
+    },
+    {
+      "practice_question": "SI unit for measuring temperature?",
+      "answer": "Kelvin (K)."
+    },
+    {
+      "practice_question": "What defines an element's identity?",
+      "answer": "The number of protons (atomic number)."
+    },
+    {
+      "practice_question": "What are the columns on the periodic table?",
+      "answer": "Groups."
+    },
+    {
+      "practice_question": "Which electrons determine bonding and reactivity?",
+      "answer": "Valence electrons."
+    },
+    {
+      "practice_question": "Ionic bonds form between what?",
+      "answer": "Metals and nonmetals."
+    },
+    {
+      "practice_question": "Covalent bonds arise from what?",
+      "answer": "Electron sharing between nonmetals."
+    },
+    {
+      "practice_question": "What does VSEPR theory predict?",
+      "answer": "Molecular geometry."
+    },
+    {
+      "practice_question": "Name a strong intermolecular force.",
+      "answer": "Hydrogen bonding."
+    },
+    {
+      "practice_question": "CO2's name is carbon what?",
+      "answer": "Carbon dioxide."
+    },
+    {
+      "practice_question": "What number is one mole?",
+      "answer": "6.022 x 10^23"
+    },
+    {
+      "practice_question": "Balanced equations obey the law of what?",
+      "answer": "Conservation of mass."
+    },
+    {
+      "practice_question": "What limits the product formed?",
+      "answer": "The limiting reactant."
+    },
+    {
+      "practice_question": "What are the three aqueous reactions?",
+      "answer": "Precipitation, acid-base, and redox."
+    },
+    {
+      "practice_question": "Arrhenius acids produce what in water?",
+      "answer": "H+ ions."
+    },
+    {
+      "practice_question": "What is increase in oxidation state called?",
+      "answer": "Oxidation."
+    },
+    {
+      "practice_question": "What does enthalpy measure at constant pressure?",
+      "answer": "Heat."
+    },
+    {
+      "practice_question": "What is the ideal gas law?",
+      "answer": "PV = nRT."
+    },
+    {
+      "practice_question": "Phase changes depend on what?",
+      "answer": "IMFs and energy."
+    },
+    {
+      "practice_question": "What are colligative properties dependent on?",
+      "answer": "Particle number."
+    }
+  ]
+}

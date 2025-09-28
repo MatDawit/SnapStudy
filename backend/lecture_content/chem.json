@@ -1,0 +1,67 @@
+
+{
+  "deck_title": "Chemistry 101 · Lecture Slides Summary",
+  "topics": [
+    {
+      "summary_text": "Chemistry studies matter—anything with mass and volume—and the changes it undergoes. We classify matter as pure substances (elements, compounds) or mixtures (homogeneous/heterogeneous). Properties can be physical (melting point, density) or chemical (reactivity). Chemical changes form new substances; physical changes do not. The scientific method guides inquiry: observe, hypothesize, test, analyze, conclude."
+    },
+    {
+      "summary_text": "Measurement uses SI units: meter (m), kilogram (kg), second (s), kelvin (K), mole (mol), ampere (A), candela (cd). Chemistry often uses derived units like liter (L) and joule (J). Significant figures communicate measurement precision. Prefixes (milli-, micro-, kilo-) scale units. Dimensional analysis converts between units using conversion factors to keep track of units algebraically."
+    },
+    {
+      "summary_text": "Atoms are the basic units of elements. Each element’s identity is set by its atomic number (protons). Mass number equals protons + neutrons; isotopes vary in neutrons. Electrons occupy the space around the nucleus and govern chemical behavior. Average atomic mass on the periodic table is a weighted average of naturally occurring isotopes."
+    },
+    {
+      "summary_text": "The periodic table organizes elements by increasing atomic number and recurring properties. Groups (columns) share valence electron patterns; periods (rows) show trends. Key families: alkali metals, alkaline earths, halogens, noble gases. Trends: atomic radius decreases across a period, increases down a group; ionization energy and electronegativity generally do the opposite."
+    },
+    {
+      "summary_text": "Electron structure is described by quantum numbers and orbitals (s, p, d, f). Electrons fill lowest-energy orbitals first (Aufbau), with at most two per orbital (Pauli) and parallel spins before pairing within a subshell (Hund). Valence electrons determine bonding and reactivity; main-group element chemistry is strongly tied to achieving noble-gas-like configurations."
+    },
+    {
+      "summary_text": "Ionic bonding forms when electrons transfer from metals (cations) to nonmetals (anions). Resulting electrostatic attraction creates ionic compounds with high lattice energies, crystalline structures, and typically high melting points. Formulas reflect charge balance (e.g., NaCl, MgCl2). In water, many ionic solids dissociate into ions that conduct electricity."
+    },
+    {
+      "summary_text": "Covalent bonding arises from electron sharing between nonmetals. Single, double, and triple bonds share 2, 4, and 6 electrons, respectively, affecting bond length and strength. Lewis structures help visualize valence electrons, bonding, and lone pairs. Resonance structures depict delocalization when a single Lewis structure cannot capture the bonding."
+    },
+    {
+      "summary_text": "Molecular geometry is predicted by VSEPR: electron groups (bonds and lone pairs) repel to maximize separation. Common shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent, trigonal bipyramidal, octahedral. Geometry plus bond polarities determine molecular polarity, which influences solubility, boiling point, and intermolecular interactions."
+    },
+    {
+      "summary_text": "Intermolecular forces (IMFs) are attractions between molecules: London dispersion (all species), dipole–dipole (polar molecules), and hydrogen bonding (H with N, O, or F). Stronger IMFs raise boiling/melting points and viscosities and lower vapor pressures. IMFs explain trends in physical properties, solubility (like dissolves like), and phase behavior."
+    },
+    {
+      "summary_text": "Chemical formulas and names follow rules. Ionic compounds are named by cation then anion (with Roman numerals for variable-charge metals). Molecular compounds use Greek prefixes (CO2: carbon dioxide). Acids: binary (hydro-…-ic) and oxyacids (-ic from -ate, -ous from -ite). Formula masses and percent composition connect formulas to measurable quantities."
+    },
+    {
+      "summary_text": "The mole links atomic scale to lab scale: 1 mol = 6.022×10^23 entities. Molar mass (g/mol) numerically equals formula mass in amu. Use moles to interconvert mass, particles, and volume (for gases at STP). Empirical formulas give simplest ratios; molecular formulas give actual counts. Determine empirical formulas from percent composition data."
+    },
+    {
+      "summary_text": "Balanced chemical equations obey conservation of mass: atoms are neither created nor destroyed. Coefficients indicate mole ratios for reactants and products. States of matter (s, l, g, aq) and conditions (Δ, catalyst) may be annotated. Balancing strategies include starting with metals, leaving O/H for last, and using fractional coefficients temporarily if helpful."
+    },
+    {
+      "summary_text": "Stoichiometry uses mole ratios from balanced equations to predict amounts. Steps: convert given to moles, apply mole ratio, convert to desired units. Limiting reactant limits product formed; the excess reactant remains. Theoretical yield is the calculated maximum; actual yield is what you obtain; percent yield = (actual/theoretical)×100%."
+    },
+    {
+      "summary_text": "Aqueous reactions include precipitation, acid–base, and redox. Strong electrolytes (strong acids/bases, soluble salts) dissociate completely; weak electrolytes partially dissociate. Net ionic equations show only species that change. Solubility rules predict precipitates. Recognize strong acids (e.g., HCl, HNO3) and strong bases (group 1 hydroxides, some group 2)."
+    },
+    {
+      "summary_text": "Acid–base reactions involve proton transfer. Arrhenius: acids produce H+ in water, bases produce OH−. Brønsted–Lowry: acids donate H+, bases accept H+. Neutralization forms water and a salt. Polyprotic acids donate multiple protons stepwise. Strength depends on extent of ionization, not concentration. Conjugate acid–base pairs differ by one H+."
+    },
+    {
+      "summary_text": "Oxidation–reduction (redox) involves electron transfer. Oxidation states help track electrons: elements are 0; oxygen often −2; hydrogen +1 with nonmetals; sum equals the charge. Oxidation is increase in oxidation state; reduction is decrease. In reactions, oxidizing agents get reduced and reducing agents get oxidized."
+    },
+    {
+      "summary_text": "Thermochemistry studies heat in chemical and physical changes. System vs surroundings, state functions, and sign conventions (q>0: heat into system). Enthalpy (ΔH) measures heat at constant pressure. Calorimetry determines q via temperature changes and heat capacities. Hess’s law adds reaction enthalpies; standard enthalpies of formation build reaction ΔH°."
+    },
+    {
+      "summary_text": "Gases are modeled by the ideal gas law PV = nRT, combining Boyle’s, Charles’s, and Avogadro’s laws. Partial pressures add (Dalton’s law). Real gases deviate at high pressure/low temperature; van der Waals corrections account for attractions and finite molecular volumes. Gas stoichiometry uses molar volume relationships at fixed T and P."
+    },
+    {
+      "summary_text": "States of matter and phase changes depend on IMFs and energy. Heating curves show temperature vs added heat; plateaus correspond to phase changes where energy changes potential, not temperature. Phase diagrams map solid–liquid–gas regions, triple points, and critical points. Sublimation, fusion, and vaporization enthalpies quantify transitions."
+    },
+    {
+      "summary_text": "Solutions form when solute disperses uniformly in solvent. Concentration units: molarity (mol/L), molality (mol/kg), mass percent, parts per million/billion. Colligative properties (ΔTb, ΔTf, osmotic pressure) depend on particle number, not identity; electrolytes have van’t Hoff factors greater than one. Solubility depends on IMFs, temperature, and for gases, pressure."
+    }
+  ]
+}
+

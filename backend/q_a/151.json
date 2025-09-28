@@ -1,0 +1,61 @@
+{
+  "deck_title": "Calculus I Â· Limits, Continuity, and Derivatives",
+  "qa_pairs": [
+    {
+      "practice_question": "What do limits describe about a function?",
+      "answer": "How a function behaves approaching a value."
+    },
+    {
+      "practice_question": "When does a two-sided limit exist?",
+      "answer": "When both one-sided limits are equal."
+    },
+    {
+      "practice_question": "What are infinite limits and limits at infinity?",
+      "answer": "Unbounded function growth and function behavior at extremes."
+    },
+    {
+      "practice_question": "What are the three requirements for continuity?",
+      "answer": "Defined, limit exists, value matches limit."
+    },
+    {
+      "practice_question": "Name the three types of discontinuities.",
+      "answer": "Removable, jump, and infinite discontinuities."
+    },
+    {
+      "practice_question": "Define the derivative f'(x) using a limit.",
+      "answer": "f'(x) = lim(hâ0)[f(x+h) - f(x)]/h. It represents instantaneous rate of change."
+    },
+    {
+      "practice_question": "Geometrically, what does the derivative represent?",
+      "answer": "The tangent line's slope at a point."
+    },
+    {
+      "practice_question": "State the power rule for differentiation.",
+      "answer": "If f(x) = xâ¿, then f'(x) = nÂ·xâ¿â»Â¹."
+    },
+    {
+      "practice_question": "State the product rule formula.",
+      "answer": "f'(x) = u'(x)v(x) + u(x)v'(x) when f(x) = u(x)v(x)."
+    },
+    {
+      "practice_question": "State the quotient rule formula.",
+      "answer": "f'(x) = [u'(x)v(x) - u(x)v'(x)] / [v(x)]Â² when f(x) = u(x)/v(x)."
+    },
+    {
+      "practice_question": "State the chain rule formula.",
+      "answer": "If f(x) = g(h(x)), then f'(x) = g'(h(x))Â·h'(x)."
+    },
+    {
+      "practice_question": "What is the derivative of sin(x)?",
+      "answer": "cos(x)"
+    },
+    {
+      "practice_question": "What is the derivative of arcsin(x)?",
+      "answer": "1/â(1 - xÂ²)"
+    },
+    {
+      "practice_question": "What is the derivative of ln(x)?",
+      "answer": "1/x"
+    }
+  ]
+}
