@@ -1,17 +1,15 @@
 /* App.css */
 
 /* Base page styling */
-.regular-page {
-  min-height: 100vh;
-  display: flex;
+/* .regular-page {
   background-color: #212121;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
-}
+} */
 
 .cover-page {
   min-height: 100vh;
   display: flex;
-  background: linear-gradient(-45deg, #276050, #1c3f50, #388788, #031e19);
+  background: linear-gradient(-45deg, #306d5c, #1c3f50, #388788, #031e19);
   background-size: 400% 400%; /* expands the gradient to animate smoothly */
   animation: gradientMove 12s ease infinite; /* animation for smooth movement */
 }

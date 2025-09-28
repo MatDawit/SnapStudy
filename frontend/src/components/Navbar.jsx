@@ -5,27 +5,13 @@ import '../styles/Navbar.css';
 
 export default function Navbar() {
   return (
-    // <header className="masthead py-3">
-    //   <div className="container-fluid d-flex justify-content-between align-items-center">
-    //     <div className="masthead-brand m-0 d-flex align-items-center" style={{ height: '40px' }}>
-    //       <div className="masthead-brand m-0 d-flex align-items-center">
-    //         <a className="navbar-brand" href="#">
-    //           <img 
-    //             src="/assets/snapstudy.svg" 
-    //             alt="SnapStudy Logo" 
-    //             className="d-inline-block logo-img"
-    //           />
-    //           SnapStudy
-    //         </a>
-    //       </div>
-    //     </div>
     <header className="masthead py-3">
-    <div className="container-fluid d-flex justify-content-between align-items-center"  style={{ height: '40px' }}>
+      <div className="container-fluid d-flex justify-content-between align-items-center" style={{ height: '60px' }}>
     
       {/* Logo + Brand on left */}
       <a className="navbar-brand d-flex align-items-center" href="#">
         <img
-          src="/assets/snapstudy.svg"
+          src="./public/assets/snapstudy.svg"
           alt="SnapStudy Logo"
           //className="d-inline-block logo-img"
           style={{ height: '140px', marginRight: '-35px', marginLeft: '-30px'}} // small space

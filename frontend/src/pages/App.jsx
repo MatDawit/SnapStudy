@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import Archives from './Archives';
 import Navbar from '../components/Navbar';
 import UploadFile from './UploadFile';
@@ -8,78 +8,35 @@ import Flashcards from './Flashcards';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import '../styles/App.css';
 
-// export default function App() {
-//   const location = useLocation();
-//   const isHome = location.pathname === '/';
-
-//   return (
-//     <div className="cover-page d-flex flex-column min-vh-100 text-white text-center">
-
-//       {/* NavBar */}
-//       <Navbar />
-
-//       {/* Page Content */}
-//       <main className="cover-container container d-flex flex-column justify-content-center flex-grow-1">
-//       <TransitionGroup component={null}>
-//           <CSSTransition
-//             key={location.pathname}
-//             classNames="fade"
-//             timeout={500}
-//           >
-//             <div className="fade-wrapper">
-//               <Routes location={location}>
-//                 <Route path="/" element={<HomePage />} />
-//                 <Route path="/archives" element={<Archives />} />
-//                 <Route path="/uploadfile" element={<UploadFile />} />
-//                 <Route path="/about" element={<About />} />
-//                 <Route path="/flashcards" element={<Flashcards />} />
-//               </Routes>
-//             </div>
-//           </CSSTransition>
-//         </TransitionGroup>
-//       </main>
-
-//       {/* Footer */}
-//       <footer className="mastfoot mt-auto py-3">
-//         <div className="container">
-//           <p>© HackUMBC 2024</p>
-//         </div>
-//       </footer>
-//     </div>
-//   );
-// }
-
-
 export default function App() {
   const location = useLocation();
-  const isHome = location.pathname === '/';
 
   return (
-    <div className="app-wrapper d-flex flex-column min-vh-100">
+    <div className="cover-page d-flex flex-column min-vh-100 text-white text-center">
 
-      {/* Navbar */}
+      {/* NavBar */}
       <Navbar />
 
       {/* Page Content */}
-      <div className={isHome ? "cover-page d-flex justify-content-center align-items-center" : "regular-page"}>
-        <TransitionGroup component={null}>
+      <main className="cover-container container d-flex flex-column justify-content-center flex-grow-1">
+      <TransitionGroup component={null}>
           <CSSTransition
             key={location.pathname}
             classNames="fade"
             timeout={500}
           >
-            <div className={isHome ? "cover-page d-flex justify-content-center align-items-center" : "fade-wrapper"}>
-                <Routes location={location}>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/archives" element={<Archives />} />
-                  <Route path="/uploadfile" element={<UploadFile />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/flashcards" element={<Flashcards />} />
-                </Routes>
+            <div className="fade-wrapper">
+              <Routes location={location}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/archives" element={<Archives />} />
+                <Route path="/uploadfile" element={<UploadFile />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/flashcards" element={<Flashcards />} />
+              </Routes>
             </div>
           </CSSTransition>
         </TransitionGroup>
-      </div>
+      </main>
 
       {/* Footer */}
       <footer className="mastfoot mt-auto py-3">
@@ -105,7 +62,8 @@ function HomePage() {
         Learn faster, remember more, and make studying actually… fun.
       </p>
       <p className="lead">
-        <a href="#" className="btn btn-lg btn-light">Learn more</a>
+        <Link to="/about" className="btn btn-lg btn-light">Learn More</Link>
+        {/* <a href="#" className="btn btn-lg btn-light">Learn more</a> */}
       </p>
     </>
   );

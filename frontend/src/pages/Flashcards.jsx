@@ -125,10 +125,32 @@ export default function Flashcards() {
   const copyLink = async () => {
     try { await navigator.clipboard.writeText(shareLink); } catch {}
   };
-  const emailMe = () => {
-    const subject = "Your SnapStudy Flashcards";
-    const body = `Here’s your flashcard link:\n\n${shareLink}`;
-    window.location.href = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const emailMe = async () => {
+  if (!email) return alert("Please enter a valid email address.");
+
+  try {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:3001"}/api/send-flashcard`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        to: email, 
+        link: shareLink,
+        subject: "Your SnapStudy Flashcards",
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Email sent successfully!");
+    } else {
+      console.error(data);
+      alert(`Failed to send email: ${data.error}`);
+    }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to send email — check your network/backend.");
+    }
   };
 
   /** Results screen */
@@ -191,6 +213,7 @@ export default function Flashcards() {
                   className="btn btn-outline-dark"
                   onClick={emailMe}
                   disabled={!email || !published}
+                  title={!published ? 'Toggle Publish first' : 'Send via backend email'}
                 >
                   Email me this link
                 </button>

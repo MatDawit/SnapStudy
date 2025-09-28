@@ -1,0 +1,29 @@
+{
+  "deck_title": "CMSC202 Â· Polymorphism (cont'd)",
+  "topics": [
+    {
+      "summary_text": "Inheritance allows derived classes to use, replace, or extend base class functions. Polymorphism, using virtual functions, allows associating multiple meanings with one function name."
+    },
+    {
+      "summary_text": "Virtual functions allow derived classes to override base class functions. Overloading lets them have different signatures. Virtual functions enable polymorphism, where the correct function is called at runtime."
+    },
+    {
+      "summary_text": "Virtual functions require the parent class to have an implementation. Pure virtual functions (= 0) mean the parent class has no implementation, making it abstract. Child classes must implement pure virtual functions."
+    },
+    {
+      "summary_text": "Abstract classes contain pure virtual functions, preventing object creation. They serve as base classes, ensuring derived classes define specific behaviors. Vehicle* ptr = &myCar; calls correct Drive() depending on virtuality."
+    },
+    {
+      "summary_text": "Virtual function tables (vtables) are used for classes with virtual functions and their children. The compiler uses vtables to determine which version of a virtual function to call at runtime, enabling polymorphism."
+    },
+    {
+      "summary_text": "The compiler adds a hidden variable (*__vptr) which is a virtual table pointer to each class. It also creates a virtual table of functions for each class, containing pointers to each of the virtual functions."
+    },
+    {
+      "summary_text": "For classes with virtual functions, declare a virtual destructor. Non-virtual destructors only invoke the base class's destructor. Virtual constructors don't exist because object construction requires complete information."
+    },
+    {
+      "summary_text": "Livecoding example: Pets (Bird, Cat, Dog) inheriting from Animal, demonstrating Eat(), Speak(), and Perform() via polymorphism with a vector of Animal pointers."
+    }
+  ]
+}

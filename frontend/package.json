@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "main": "src/index.jsx",
-  "homepage": "https://MatDawit.github.io/hackUMBC2025",
+  "homepage": "https://matdawit.github.io/hackUMBC2025",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",

@@ -20,22 +20,9 @@ API_KEY = os.getenv('GEMINI_API_KEY')
 genai.configure(api_key = API_KEY)
 
 # seed model
-my_model = genai.GenerativeModel(
-    MODEL,
-    generation_config={
-        "response_mime_type": "application/json",
-        "temperature": 0,   # be deterministic
-        "top_k": 1,
-        "top_p": 1
-    }
-)
+my_model = genai.GenerativeModel(MODEL)
 
-BASE_DIR = Path(__file__).parent
-PDF_FILE = str(BASE_DIR / "pdf_files" / "polymorphism.pdf")
-
-
-text_content = extract_text(PDF_FILE) or ""
-
+pdf_path = "pdf_files/polymorphism.pdf"
 
 # function to strip extra fences
 def stripText(s):
@@ -60,6 +47,7 @@ def stripText(s):
   return s
 
 '''
+=============== PART A ================
 EXTRACT data from txt and have gemini dump a json file in format 
 {
   "deck_title": "Course · Topic",
@@ -69,7 +57,17 @@ EXTRACT data from txt and have gemini dump a json file in format
     }
   ]
 }
+
 '''
+
+doc = fitz.open(pdf_path)
+all_text = []
+
+for page in doc:
+    text = page.get_text("text")  
+    all_text.append(text)
+
+full_text = "\n".join(all_text)
 prompt_a = f"""
 You are an educational summarizer.
 Read the lecture slides text below and produce a JSON file in this exact format:
@@ -90,18 +88,17 @@ Rules:
 - Each "summary_text" should summarize one concept or slide, concise and clear.
 
 Here is the lecture text:
-{text_content}
+{full_text}
 """
 
 # upload file into genai an dhave genai generate responses based off file+prompt
-file_ref = genai.upload_file(path=PDF_FILE)
-response = my_model.generate_content([prompt_a, file_ref])
+response = my_model.generate_content(prompt_a)
 
 clean_a = stripText(response.text)
 # Decode escaped unicode into actual characters
 decoded = clean_a.encode("utf-8").decode("unicode_escape")
 
-with open("lecture_content/polymorphism.json", "w", encoding="utf-8") as f:
+with open("lecture_content/poly.json", "w", encoding="utf-8") as f:
     for line in decoded.splitlines():
         f.write(line.rstrip() + "\n")
         print(line)
@@ -120,10 +117,10 @@ READ/ load() the json file created and use that to create practice quizzes
 }
 '''
 
-'''
+
 
 # PRACTICE MAKING GEMINI CREATE QUIZZES, open('file_location', 'access mode')
-with open('lecture_content/chem.json', 'r') as f:
+with open('lecture_content/poly.json', 'r') as f:
   data = json.load(f)
 
 # create the prompt_b here instead of feedig direc;t
@@ -147,28 +144,16 @@ Here is the lecture JSON to base the quiz on:
 
 response = my_model.generate_content(prompt_b)
 
-
-
-
 clean = stripText(response.text)
 # Decode escaped unicode into actual characters
 decoded = clean.encode("utf-8").decode("unicode_escape")
 
-with open("q_a/101.json", "w", encoding="utf-8") as f:
+with open("q_a/202.json", "w", encoding="utf-8") as f:
     for line in decoded.splitlines():
         f.write(line.rstrip() + "\n")
 
 
 print("✅ Saved cleaned JSON text exactly as returned")
-
-print("Model Output\n")
-print(response.text)
-print("Metadata\n") # don't worry about it i just want to see how gemini is tokenizing on sum nerd shi
-print(response.usage_metadata)
-
-
-
-'''
 
 print("Model Output\n")
 print(response.text)

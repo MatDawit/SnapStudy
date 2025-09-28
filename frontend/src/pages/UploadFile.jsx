@@ -40,8 +40,21 @@ export default function UploadFile() {
         }
     };
     
-    return (
+    return(
+        <div className="d-flex justify-content-center align-items-center mt-5">
+            <div className="card shadow-lg p-4" style={{ maxWidth: '500px', width: '90%' }}>
+                <h3 className="card-title text-center mb-3">Upload Your PDF</h3>
+                <p className="text-center text-muted mb-4">
+                SnapStudy will generate flashcards from your file!
+                </p>
+            </div>
+        </div>
+    );
+
+    {/* return (
         <div className="container-fluid p-0">
+
+            
             <div className="container mb-3">
                 <label htmlFor="formFile" className="form-label">Upload a PDF file</label>
                 <input 
@@ -60,5 +73,5 @@ export default function UploadFile() {
                 </button>
             </div>
         </div>
-    );
+    ); */}
 }
