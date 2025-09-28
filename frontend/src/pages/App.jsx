@@ -7,6 +7,8 @@ import About from './About';
 import Flashcards from './Flashcards';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import '../styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export default function App() {
   const location = useLocation();

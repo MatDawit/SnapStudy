@@ -4,7 +4,7 @@ import google.generativeai as genai
 import json
 import fitz # for pdf file extraction
 from pdfminer.high_level import extract_text
-from fastapi import FastAPI,UploadFile,File
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 # glabal variable for the pdf file
@@ -26,11 +26,43 @@ my_model = genai.GenerativeModel(MODEL)
 
 pdf_path = "pdf_files/polymorphism.pdf"
 
+'''
+app = FastAPI()
+
+origins = [
+  "http://localhost:3000",  # Frontend URL
+    # Add other allowed origins as needed
+]
+# Allow requests from frontend (React runs on 3000 usually)
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=origins,
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
+)
+
+@app.get("/")
+def root():
+  return {"message": "Backend is working!"}
+'''
+
 app = FastAPI()
 
 app.add_middleware(
-   
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",   # CRA
+        "http://localhost:5173",   # Vite
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+@app.get("/")
+def root():
+    return {"message": "Backend is working!"}
 
 # function to strip extra fences
 def stripText(s):
@@ -54,6 +86,7 @@ def stripText(s):
   print("Cleaned JSON:\n", s)
   return s
 
+
 '''
 =============== PART A ================
 EXTRACT data from txt and have gemini dump a json file in format 
@@ -67,7 +100,25 @@ EXTRACT data from txt and have gemini dump a json file in format
 }
 
 '''
+@app.post("/upload")
+async def upload_pdf(file: UploadFile = File(...)):
+  # ensure PDF
+  if not file.filename.lower().endswith(".pdf"):
+    raise HTTPException(status_code=400, detail="Please upload a .pdf file")
 
+  # open PDF from bytes (instead of pdf_path)
+  pdf_bytes = await file.read()
+  try:
+    doc = fitz.open(stream=pdf_bytes, filetype="pdf")
+  except Exception as e:
+    raise HTTPException(status_code=400, detail=f"Invalid PDF: {e}")
+
+  all_text = []
+  for page in doc:
+    text = page.get_text("text")
+    all_text.append(text)
+
+  full_text = "\n".join(all_text)
 doc = fitz.open(pdf_path)
 all_text = []
 
@@ -106,7 +157,7 @@ clean_a = stripText(response.text)
 # Decode escaped unicode into actual characters
 decoded = clean_a.encode("utf-8").decode("unicode_escape")
 
-with open("lecture_content/poly.json", "w", encoding="utf-8") as f:
+with open("lecture_content/new.json", "w", encoding="utf-8") as f:
     for line in decoded.splitlines():
         f.write(line.rstrip() + "\n")
         print(line)
@@ -165,5 +216,3 @@ print("✅ Saved cleaned JSON text exactly as returned")
 
 print("Model Output\n")
 print(response.text)
-print("Metadata\n") # don't worry about it i just want to see how gemini is tokenizing on sum nerd shi
-print(response.usage_metadata)

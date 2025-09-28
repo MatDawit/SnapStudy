@@ -8,7 +8,7 @@ export default function About() {
         This project was created for the <strong>2025 UMBC Hackathon</strong> by
         a small team of passionate students. Inspired by the chat and image
         capabilities of modern LLMs, we set out to build a tool that could
-        support students during the busy midterms season.
+        support students during the busy midterms and final seasons.
       </p>
 
       <h3 className="mt-5">Our Goal</h3>
@@ -25,7 +25,7 @@ export default function About() {
           Entrepreneurship & Innovation Minor
         </li>
         <li>
-          <strong>Prince</strong> – Math & Computer Science (AI/ML track) Major
+          <strong>Prince Michael</strong> – Math & Computer Science (AI/ML track) Major
         </li>
         <li>
           <strong>Alice</strong> – Biology & Computer Science Major

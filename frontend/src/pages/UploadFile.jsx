@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export default function UploadFile() {
     const [file, setFile] = useState(null);
     const [status, setStatus] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleUpload = async (e) => {
@@ -16,7 +17,7 @@ export default function UploadFile() {
       const formData = new FormData();
       formData.append("pdfFile", file);
 
-      setStatus("Uploading...");
+      setLoading(true);
 
       try {
           const response = await fetch("http://localhost:5000/api/upload", {
@@ -63,6 +64,8 @@ export default function UploadFile() {
       } catch (err) {
           console.error("Fetch error:", err);
           setStatus("Upload failed. Please try again.");
+      } finally {
+        setLoading(false)
       }
 };
 
@@ -87,13 +90,30 @@ export default function UploadFile() {
                     />
                 </div>
 
-                <button
+                {/* <button
                     type="submit"
                     style={{ width: '300px' }}
                     className="btn btn-light d-block mx-auto"
                     onClick={handleUpload}
                 >
                     Upload & Generate Flashcards
+                </button> */}
+
+                <button
+                    className="btn btn-light d-block mx-auto"
+                    type="button"
+                    onClick={handleUpload}
+                    disabled={loading}
+                    style={{ width: "300px" }}
+                >
+                {loading ? (
+                    <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Generating Flashcards...
+                    </>
+                ) : (
+                    "Upload & Generate Flashcards"
+                )}
                 </button>
 
                 {status && (
