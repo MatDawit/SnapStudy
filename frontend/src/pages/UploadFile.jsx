@@ -61,6 +61,7 @@ export default function UploadFile() {
 
                 <button
                         type="submit"
+                        style={{ width: '10px' }}
                         className="btn btn-light"
                         onClick={handleUpload}
                         >

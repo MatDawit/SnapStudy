@@ -129,24 +129,26 @@ export default function Flashcards() {
   if (!email) return alert("Please enter a valid email address.");
 
   try {
-    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:3001"}/api/send-flashcard`, {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || "https://hackumbc2025.onrender.com";
+    const res = await fetch(`${backendUrl}/api/send-flashcard`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         to: email, 
         link: shareLink,
         subject: "Your SnapStudy Flashcards",
+        text: `Here’s your flashcard link: ${shareLink}`
       }),
     });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      alert("Email sent successfully!");
-    } else {
-      console.error(data);
-      alert(`Failed to send email: ${data.error}`);
-    }
+      if (res.ok) {
+        alert("Email sent successfully!");
+      } else {
+        console.error(data);
+        alert(`Failed to send email: ${data.error}`);
+      }
     } catch (err) {
       console.error(err);
       alert("Failed to send email — check your network/backend.");
