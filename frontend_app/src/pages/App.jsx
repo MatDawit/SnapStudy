@@ -33,6 +33,7 @@ export default function App() {
                 <Route path="/archives" element={<Archives />} />
                 <Route path="/uploadfile" element={<UploadFile />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/flashcards/:slug" element={<Flashcards />} />
                 <Route path="/flashcards" element={<Flashcards />} />
               </Routes>
             </div>

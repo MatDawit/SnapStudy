@@ -1,0 +1,33 @@
+{
+  "deck_title": "CMSC202 Â· Polymorphism",
+  "qa_pairs": [
+    {
+      "practice_question": "What does polymorphism use for late binding?",
+      "answer": "Polymorphism uses virtual functions for late binding."
+    },
+    {
+      "practice_question": "What makes a parent class abstract?",
+      "answer": "Pure virtual functions make a parent class abstract."
+    },
+    {
+      "practice_question": "What happens without a virtual `Drive` function?",
+      "answer": "The Vehicle's drive function is always called, not the Car's."
+    },
+    {
+      "practice_question": "What is the purpose of virtual function tables?",
+      "answer": "Virtual function tables (vtables) are used for polymorphism."
+    },
+    {
+      "practice_question": "What do vtables contain?",
+      "answer": "Vtables contain pointers to the virtual functions."
+    },
+    {
+      "practice_question": "Why should classes declare a virtual destructor?",
+      "answer": "To ensure derived class destructors are called, preventing memory leaks."
+    },
+    {
+      "practice_question": "Are virtual constructors possible? Why or why not?",
+      "answer": "No, virtual constructors are not possible because object construction requires complete type information."
+    }
+  ]
+}

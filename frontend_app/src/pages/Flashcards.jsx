@@ -82,17 +82,23 @@ export default function Flashcards() {
     setDeck(unknowns); setIdx(0); setFlip(false); setStatus({}); setShowResults(false); setProgressCount(0);
   };
   const handleSaveDeck = () => {
-    if (!saveName.trim()) return;
-    const savedDecks = JSON.parse(localStorage.getItem("savedDecks") || "[]");
-    savedDecks.push({
-      name: saveName,
-      date: new Date().toISOString(),
-      cards: ORIGINAL,
-      slug: saveName.replace(/\s+/g, "-").toLowerCase()
-    });
-    localStorage.setItem("savedDecks", JSON.stringify(savedDecks));
-    setSaved(true);
-  };
+  if (!saveName.trim()) return;
+  const slug = saveName.replace(/\s+/g, "-").toLowerCase();
+  let savedDecks = JSON.parse(localStorage.getItem("savedDecks") || "[]");
+
+  // Remove existing deck with same slug to avoid duplicates
+  savedDecks = savedDecks.filter(d => d.slug !== slug);
+
+  savedDecks.push({
+    name: saveName,
+    date: new Date().toISOString(),
+    cards: ORIGINAL,
+    slug
+  });
+
+  localStorage.setItem("savedDecks", JSON.stringify(savedDecks));
+  setSaved(true);
+};
 
   // Results data
   const summary = useMemo(() => {

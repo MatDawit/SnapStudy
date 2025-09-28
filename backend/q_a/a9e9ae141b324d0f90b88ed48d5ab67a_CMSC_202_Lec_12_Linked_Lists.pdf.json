@@ -1,0 +1,53 @@
+{
+  "deck_title": "CMSC202 Â· Linked Lists",
+  "qa_pairs": [
+    {
+      "practice_question": "Are linked lists dynamic or static structures?",
+      "answer": "Dynamic. They allow efficient insertion and deletion."
+    },
+    {
+      "practice_question": "What are the drawbacks of using linked lists?",
+      "answer": "Random access is impossible, and memory management is required."
+    },
+    {
+      "practice_question": "What does a node consist of?",
+      "answer": "Data and a pointer to the next node."
+    },
+    {
+      "practice_question": "What is the last node's pointer set to?",
+      "answer": "The last node's pointer is set to `nullptr`."
+    },
+    {
+      "practice_question": "Why is memory management important in linked lists?",
+      "answer": "To prevent losing nodes and memory leaks."
+    },
+    {
+      "practice_question": "Name 3 essential Linked List functions.",
+      "answer": "`insert()`, `remove()`, and `printList()` are all correct."
+    },
+    {
+      "practice_question": "What value is `m_head` initialized to?",
+      "answer": "`m_head` is initialized to `nullptr` in constructor."
+    },
+    {
+      "practice_question": "Where can insertion in a linked list occur?",
+      "answer": "Beginning, end, or middle of the list."
+    },
+    {
+      "practice_question": "How does linked list traversal work?",
+      "answer": "Start at `m_head`, loop until `nullptr`, process data."
+    },
+    {
+      "practice_question": "What pointers are needed to remove a node?",
+      "answer": "`curr` and `prev` pointers are needed to remove a node."
+    },
+    {
+      "practice_question": "How do dummy nodes help with edge cases?",
+      "answer": "Provide persistent head/tail, simplifying operations."
+    },
+    {
+      "practice_question": "What pointers are used to reverse a list?",
+      "answer": "`curr`, `prev`, and `next` pointers are used."
+    }
+  ]
+}
