@@ -6,7 +6,7 @@ from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 
 load_dotenv()
-
+# render is a backend hosting framework
 app = Flask(__name__)
 CORS(app, origins=[os.environ.get("FRONTEND_ORIGIN", "http://localhost:5173")])
 
@@ -62,3 +62,4 @@ def health():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+    

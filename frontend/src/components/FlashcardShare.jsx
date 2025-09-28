@@ -14,7 +14,7 @@ export default function FlashcardShare({ shareLink }) {
 
     setStatus("Sending...");
     try {
-      const res = await fetch("https://your-backend.onrender.com/api/send-flashcard", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/send-flashcard`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ to: email, link: shareLink }),
