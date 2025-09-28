@@ -21,23 +21,48 @@ export default function UploadFile() {
     ];
 
     const handleUpload = async (e) => {
-        e.preventDefault();
-        
         if (!file) {
             alert("Please select a PDF prior to submitting!");
             return;
         }
 
+        const formData = new FormData();
+        formData.append("pdfFile", file);
+
         try {
-            // Simulate successful upload
-            navigate('/flashcards', { 
-                state: { 
-                    deck: dummyFlashcards 
-                } 
+            const response = await fetch("http://localhost:8000/upload", {
+            method: "POST",
+            body: formData
             });
+
+            const data = await response.json();
+            console.log("Backend returned:", data);
+
+            // You can now navigate or display the JSON
+            navigate('/flashcards', { state: { deck: data } });
         } catch (error) {
+            console.error(error);
             alert('Upload failed. Please try again.');
         }
+    };
+        
+        // e.preventDefault();
+        
+        // if (!file) {
+        //     alert("Please select a PDF prior to submitting!");
+        //     return;
+        // }
+
+        // try {
+        //     // Simulate successful upload
+        //     navigate('/flashcards', { 
+        //         state: { 
+        //             deck: dummyFlashcards 
+        //         } 
+        //     });
+        // } catch (error) {
+        //     alert('Upload failed. Please try again.');
+        // }
     };
     
     return(
@@ -60,12 +85,12 @@ export default function UploadFile() {
                 </div>
 
                 <button
-                        type="submit"
-                        style={{ width: '10px' }}
-                        className="btn btn-light"
-                        onClick={handleUpload}
-                        >
-                        Upload & Generate Flashcards
+                    type="submit"
+                    style={{ width: '300px' }}
+                    className="btn btn-light d-block mx-auto"
+                    onClick={handleUpload}
+                    >
+                    Upload & Generate Flashcards
                 </button>
             </div>
         </div>

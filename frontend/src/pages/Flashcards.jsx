@@ -1,7 +1,6 @@
 // src/Flashcards.jsx
 import React, { useMemo, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import Flashcard from "../components/Flashcard";
 import TopicSummary from "../components/TopicSummary";
 import FlashcardShare from "../components/FlashcardShare";
 
@@ -9,7 +8,7 @@ export default function Flashcards() {
   const { state } = useLocation();
   const incoming = state?.deck || [];
 
-  // Normalize incoming cards
+  // Normalize deck
   const ORIGINAL = useMemo(
     () =>
       incoming
@@ -33,49 +32,45 @@ export default function Flashcards() {
     );
   }
 
-  // Session state
+  // State
   const [deck, setDeck] = useState(ORIGINAL);
   const [idx, setIdx] = useState(0);
   const [flip, setFlip] = useState(false);
-  const [status, setStatus] = useState({}); // { [id]: "known" | "unknown" }
-  const [meter, setMeter] = useState(50);   // slider (0..100)
+  const [status, setStatus] = useState({});          // { [id]: "known" | "unknown" }
   const [showResults, setShowResults] = useState(false);
+  const [progressCount, setProgressCount] = useState(0); // advances only on Next
 
   const cur = deck[idx];
-  const answeredCount = Object.keys(status).length;
-  const progressPct = Math.round((answeredCount / deck.length) * 100);
-  const done = answeredCount === deck.length;
   const isLast = idx === deck.length - 1;
+  const progressPct = Math.round((progressCount / deck.length) * 100);
 
+  // Button class helper (white by default, green/red when selected)
+  const idkSelected = status[cur.id] === "unknown";
+  const ikSelected  = status[cur.id] === "known";
+  const idkBtnClass = idkSelected ? "btn btn-danger text-white" : "btn btn-light border text-dark";
+  const ikBtnClass  = ikSelected  ? "btn btn-success text-white" : "btn btn-light border text-dark";
+
+  // Actions
   const prev = () => {
     setIdx((i) => Math.max(0, i - 1));
     setFlip(false);
-    setMeter(50);
+    // progress does NOT change on Prev
   };
+
   const next = () => {
-    // If we’re on the last card AND all cards are marked, show Results
-    if (isLast && done) {
+    if (isLast) {
+      setProgressCount(deck.length); // fill bar on last Next
       setShowResults(true);
       return;
     }
     setIdx((i) => Math.min(deck.length - 1, i + 1));
     setFlip(false);
-    setMeter(50);
+    setProgressCount((c) => Math.min(deck.length, c + 1)); // +1 per Next press
   };
 
   const mark = (type) => {
-    if (status[cur.id]) return;     // don’t double-mark
+    // Record choice only; do not auto-advance
     setStatus((s) => ({ ...s, [cur.id]: type }));
-    setFlip(false);
-    setMeter(50);
-    // auto-advance unless already at last card
-    if (!isLast) setIdx((i) => Math.min(deck.length - 1, i + 1));
-  };
-
-  // Commit slider on release: full left = unknown, full right = known
-  const commitMeter = (val) => {
-    if (val <= 10) return mark("unknown");
-    if (val >= 90) return mark("known");
   };
 
   const restart = () => {
@@ -83,21 +78,22 @@ export default function Flashcards() {
     setIdx(0);
     setFlip(false);
     setStatus({});
-    setMeter(50);
     setShowResults(false);
+    setProgressCount(0); // reset progress bar
   };
 
   const retakeUnknowns = () => {
     const unknowns = deck.filter((c) => status[c.id] === "unknown");
-    if (unknowns.length === 0) return restart();
+    if (unknowns.length === 0) return restart(); // restart already resets progress
     setDeck(unknowns);
     setIdx(0);
     setFlip(false);
     setStatus({});
-    setMeter(50);
     setShowResults(false);
+    setProgressCount(0); // reset progress for new run
   };
 
+  // Results data
   const summary = useMemo(() => {
     const res = { known: {}, review: {} };
     for (const card of deck) {
@@ -109,7 +105,7 @@ export default function Flashcards() {
     return res;
   }, [deck, status]);
 
-  /** Share link + email state */
+  // Share link (hash-encodes deck; works without backend)
   const shareLink = useMemo(() => {
     try {
       const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(ORIGINAL))));
@@ -119,44 +115,8 @@ export default function Flashcards() {
     }
   }, [ORIGINAL]);
 
-  const [published, setPublished] = useState(false);
-  const [email, setEmail] = useState("");
-
-  const copyLink = async () => {
-    try { await navigator.clipboard.writeText(shareLink); } catch {}
-  };
-  const emailMe = async () => {
-  if (!email) return alert("Please enter a valid email address.");
-
-  try {
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || "https://hackumbc2025.onrender.com";
-    const res = await fetch(`${backendUrl}/api/send-flashcard`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        to: email, 
-        link: shareLink,
-        subject: "Your SnapStudy Flashcards",
-        text: `Here’s your flashcard link: ${shareLink}`
-      }),
-    });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert("Email sent successfully!");
-      } else {
-        console.error(data);
-        alert(`Failed to send email: ${data.error}`);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to send email — check your network/backend.");
-    }
-  };
-
-  /** Results screen */
-  if (done || showResults) {
+  // Results screen (only after pressing Next on last card)
+  if (showResults) {
     const knownCount = Object.values(status).filter((v) => v === "known").length;
 
     return (
@@ -177,125 +137,120 @@ export default function Flashcards() {
           <Link to="/uploadfile" className="btn btn-link">Upload a different PDF</Link>
         </div>
 
-        {/* Sharing */}
-        <div className="card mt-4">
-          <div className="card-body">
-            <div className="form-check form-switch mb-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="publishSwitch"
-                checked={published}
-                onChange={(e) => setPublished(e.target.checked)}
-              />
-              <label className="form-check-label" htmlFor="publishSwitch">
-                Publish this set (create a shareable link)
-              </label>
-            </div>
-
-            {published && (
-              <div className="input-group mb-3">
-                <input className="form-control" value={shareLink} readOnly />
-                <button className="btn btn-outline-primary" onClick={copyLink}>Copy link</button>
-              </div>
-            )}
-
-            <div className="row g-2 align-items-center">
-              <div className="col-sm-7 col-md-6">
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="col-auto">
-                <button
-                  className="btn btn-outline-dark"
-                  onClick={emailMe}
-                  disabled={!email || !published}
-                  title={!published ? 'Toggle Publish first' : 'Send via backend email'}
-                >
-                  Email me this link
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FlashcardShare shareLink={shareLink} />
       </div>
     );
   }
 
-  /** Study screen (simpler look) */
+  // Study screen
   return (
-    <div className="container my-4" style={{ maxWidth: 980 }}>
-      {/* short progress bar (~2in) top-left */}
-      <div className="mb-3" style={{ width: "2in" }}>
-        <div className="progress" style={{ height: 6 }}>
-          <div
-            className="progress-bar"
-            role="progressbar"
-            style={{ width: `${progressPct}%` }}
-            aria-valuenow={progressPct}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          />
-        </div>
-      </div>
+    <>
+      {/* Flip animation styles (scoped) */}
+      <style>{`
+        .flip-scene { perspective: 1000px; }
+        .flip-card {
+          position: relative;
+          width: 100%;
+          min-height: 260px;
+          transform-style: preserve-3d;
+          transition: transform 600ms cubic-bezier(.2,.6,.2,1);
+          cursor: pointer;
+        }
+        .flip-card.is-flipped { transform: rotateY(180deg); }
+        .flip-face {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+          backface-visibility: hidden;
+        }
+        .flip-back { transform: rotateY(180deg); }
+      `}</style>
 
-      {/* bigger, simpler card (text forced to black) */}
-      <div className="mx-auto mb-3" style={{ maxWidth: 960 }}>
-        <div className="border rounded-3 bg-white p-0" style={{ minHeight: 420 }}>
-          <div
-            className="p-5 text-center text-dark"
-            style={{ color: "#000" }}
-            role="button"
-            onClick={() => setFlip((f) => !f)}
-            title="Tap to flip"
-          >
-            <Flashcard card={cur} flip={flip} idx={idx} total={deck.length} />
+      <div className="container my-4" style={{ maxWidth: 980 }}>
+        {/* Short progress bar (~2in), top-left; moves only on Next */}
+        <div className="mb-3" style={{ width: "2in" }}>
+          <div className="progress" style={{ height: 6 }}>
+            <div
+              className="progress-bar"
+              role="progressbar"
+              style={{ width: `${progressPct}%` }}
+              aria-valuenow={progressPct}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            />
+          </div>
+        </div>
+
+        {/* Big white rectangle (no inner rectangle) */}
+        <div className="mx-auto mb-3" style={{ maxWidth: 960 }}>
+          <div className="border rounded-3 bg-white" style={{ minHeight: 420 }}>
+            <div className="p-5 text-center text-dark" style={{ color: "#000" }}>
+              {/* Flip scene */}
+              <div
+                className="flip-scene"
+                role="button"
+                title="Tap to flip"
+                onClick={() => setFlip((f) => !f)}
+                aria-pressed={flip}
+              >
+                <div className={`flip-card ${flip ? "is-flipped" : ""}`}>
+                  {/* Front */}
+                  <div className="flip-face">
+                    <div className="fs-1 fw-semibold">{cur.term}</div>
+                  </div>
+                  {/* Back */}
+                  <div className="flip-face flip-back">
+                    <div className="fs-1 fw-semibold">{cur.definition}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-muted mt-3">Card {idx + 1} / {deck.length}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Controls (white buttons by default):
+            Left:  [Prev]  [I don’t know this (red on select)]
+            Right: [I know this (green on select)]  [Next] */}
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center gap-2">
+            <button
+              className="btn btn-light border text-dark"
+              onClick={prev}
+              disabled={idx === 0}
+            >
+              ← Previous
+            </button>
+
+            <button
+              type="button"
+              className={idkBtnClass}
+              onClick={() => mark("unknown")}
+              aria-pressed={idkSelected}
+            >
+              I don’t know this
+            </button>
+          </div>
+
+          <div className="d-flex align-items-center gap-2">
+            <button
+              type="button"
+              className={ikBtnClass}
+              onClick={() => mark("known")}
+              aria-pressed={ikSelected}
+            >
+              I know this
+            </button>
+
+            <button
+              className="btn btn-light border text-dark"
+              onClick={next}
+            >
+              Next →
+            </button>
           </div>
         </div>
       </div>
-
-      {/* Prev / Next */}
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <button className="btn btn-outline-secondary" onClick={prev} disabled={idx === 0}>
-          ← Previous
-        </button>
-        <div className="text-muted small">Card {idx + 1} / {deck.length}</div>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={next}
-          disabled={isLast && !done}  // enable on last card only after it’s marked
-        >
-          {isLast && done ? "See Results →" : "Next →"}
-        </button>
-      </div>
-
-      {/* Slider meter (no helper text) */}
-      <div className="mx-auto" style={{ maxWidth: 720 }}>
-        <div className="d-flex justify-content-between mb-1">
-          <span style={{ fontFamily: '"Comic Sans MS","Comic Sans",cursive' }}>
-            I don’t know this
-          </span>
-          <span style={{ fontFamily: '"Comic Sans MS","Comic Sans",cursive' }}>
-            I know this
-          </span>
-        </div>
-        <input
-          type="range"
-          className="form-range"
-          min={0}
-          max={100}
-          step={1}
-          value={meter}
-          onChange={(e) => setMeter(Number(e.target.value))}
-          onMouseUp={(e) => commitMeter(Number(e.currentTarget.value))}
-          onTouchEnd={() => commitMeter(meter)}
-        />
-      </div>
-    </div>
+    </>
   );
 }

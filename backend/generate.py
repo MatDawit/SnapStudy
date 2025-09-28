@@ -4,6 +4,8 @@ import google.generativeai as genai
 import json
 import fitz # for pdf file extraction
 from pdfminer.high_level import extract_text
+from fastapi import FastAPI,UploadFile,File
+from fastapi.middleware.cors import CORSMiddleware
 
 # glabal variable for the pdf file
 from pathlib import Path
@@ -23,6 +25,12 @@ genai.configure(api_key = API_KEY)
 my_model = genai.GenerativeModel(MODEL)
 
 pdf_path = "pdf_files/polymorphism.pdf"
+
+app = FastAPI()
+
+app.add_middleware(
+   
+)
 
 # function to strip extra fences
 def stripText(s):
