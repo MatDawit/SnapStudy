@@ -1,0 +1,45 @@
+src/Navbar.css
+
+src/Navbar.css
+
+/* Nav underline effect like the old cover page */
+.masthead-nav .nav-link {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.masthead-nav .nav-link:hover,
+.masthead-nav .nav-link:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.masthead-nav .nav-link.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Make nav items inline */
+.masthead-nav > li {
+  display: inline-block;
+  margin-left: 20px;
+}
+.masthead-nav > li:first-child {
+  margin-left: 0;
+}
+
+.logo-img {
+  height: 120px;   
+  width: auto;    
+}
+
+.glowy-text {
+  font-size: 25px;
+  /* font-weight: bold; */
+  color: #fff;
+  text-shadow: 0 0 5px #007176, 0 0 10px #007176, 0 0 20px #007176;
+}
+
+
+

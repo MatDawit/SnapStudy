@@ -1,0 +1,121 @@
+/* App.css */
+
+/* Base page styling */
+/* .regular-page {
+  background-color: #212121;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+} */
+
+.cover-page {
+  min-height: 100vh;
+  display: flex;
+  background: linear-gradient(-45deg, #306d5c, #1c3f50, #388788, #031e19);
+  background-size: 400% 400%; /* expands the gradient to animate smoothly */
+  animation: gradientMove 12s ease infinite; /* animation for smooth movement */
+}
+
+/* Keyframes for gradient animation */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+a,
+a:focus,
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Header */
+.masthead-brand {
+  font-weight: bold;
+}
+
+.masthead-nav .nav-link {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+  border-bottom: 2px solid transparent;
+}
+
+.masthead-nav .nav-link:hover,
+.masthead-nav .nav-link:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.masthead-nav .nav-link.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Cover content */
+.cover-heading {
+  margin-bottom: 20px;
+}
+
+.cover .lead {
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn-light {
+  color: #333;
+  font-weight: bold;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+.btn-light:hover,
+.btn-light:focus {
+  color: #333;
+  background-color: #f8f9fa;
+  border-color: #fff;
+}
+
+.glowy-text {
+  font-size: 90px;
+  /* font-weight: bold; */
+  color: #fff;
+  text-shadow: 0 0 5px #007176, 0 0 10px #007176, 0 0 20px #007176;
+}
+
+.glowy-text-animated {
+  font-size: 80px;
+  color: #fff;
+  text-shadow: 0 0 7px #014b4f, 0 0 10px #014b4f, 0 0 20px #014b4f;
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #014b4f, 0 0 10px #014b4f, 0 0 20px #014b4f;
+  }
+  to {
+    text-shadow: 0 0 10px #3c9c9e, 0 0 20px #3c9c9e, 0 0 30px #3c9c9e;
+  }
+}
+
+.fade-wrapper {
+  position: relative; /* keeps layout stable */
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 700ms ease-in;
+}
+.fade-exit {
+  opacity: 0;
+  position: absolute; /* allows old page to fade out without pushing content */
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+}
