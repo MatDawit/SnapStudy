@@ -42,11 +42,30 @@ export default function UploadFile() {
     
     return(
         <div className="d-flex justify-content-center align-items-center mt-5">
-            <div className="card shadow-lg p-4" style={{ maxWidth: '500px', width: '90%' }}>
+            <div className="card shadow-lg p-4" style={{ maxWidth: '900px', width: '90%' }}>
                 <h3 className="card-title text-center mb-3">Upload Your PDF</h3>
                 <p className="text-center text-muted mb-4">
                 SnapStudy will generate flashcards from your file!
                 </p>
+
+                <div className="container mb-3">
+                    <label htmlFor="formFile" className="form-label">Upload a PDF file</label>
+                    <input 
+                        className="form-control" 
+                        accept=".pdf"
+                        type="file" 
+                        id="formFile"
+                        onChange={(e) => setFile(e.target.files[0])}  
+                    />
+                </div>
+
+                <button
+                        type="submit"
+                        className="btn btn-light"
+                        onClick={handleUpload}
+                        >
+                        Upload & Generate Flashcards
+                </button>
             </div>
         </div>
     );
