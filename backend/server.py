@@ -9,28 +9,26 @@ from werkzeug.utils import secure_filename
 from generate_from_pdf import generate_from_pdf
 import fitz  # PyMuPDF for PDF validation
 
-# Optional: import your flashcard generation function
-# from generate_flashcards import generate_from_pdf
-
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-
 # ======================
 # Config
 # ======================
 UPLOAD_FOLDER = "uploaded_pdfs"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+LECTURE_FOLDER = "lecture_content"
+QA_FOLDER = "q_a"
+
+# Ensure folders exist
+for folder in [UPLOAD_FOLDER, LECTURE_FOLDER, QA_FOLDER]:
+    os.makedirs(folder, exist_ok=True)
+
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10 MB limit
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 FROM_EMAIL = os.environ.get("GMAIL_USER")  # Verified "From" email in SendGrid
-
-os.makedirs("uploaded_pdfs", exist_ok=True)
-os.makedirs("lecture_content", exist_ok=True)
-os.makedirs("q_a", exist_ok=True)
 
 # ======================
 # Helpers
@@ -80,12 +78,10 @@ def send_flashcard():
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
-# ======================
-# Upload PDF + optional flashcard generation
-# ======================
 @app.route("/api/upload", methods=["POST"])
 def upload_pdf():
     import traceback
+
     # 1. Check file exists
     if "pdfFile" not in request.files:
         return jsonify({"success": False, "error": "No file part in request"}), 400
@@ -110,7 +106,6 @@ def upload_pdf():
 
     # 4. Validate PDF
     try:
-        import fitz
         fitz.open(save_path).close()
         print(f"[UPLOAD] PDF is valid")
     except Exception as e:
@@ -134,9 +129,6 @@ def upload_pdf():
         traceback.print_exc()
         return jsonify({"success": False, "error": f"Flashcard generation failed: {str(e)}"}), 500
 
-# ======================
-# Health check
-# ======================
 @app.route("/api/health")
 def health():
     return jsonify({"ok": True})
