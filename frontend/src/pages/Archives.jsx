@@ -20,7 +20,7 @@ export default function Archives() {
     <div className="archives-page d-flex flex-column align-items-center">
       <h1 className="cover-heading display-4">Archives</h1>
       <p className="lead text-center">
-        Search our archive for documents and records.
+        Search our archive for past created flashcards
       </p>
       <div className="mb-3 w-100" style={{ maxWidth: '500px' }}>
         <input

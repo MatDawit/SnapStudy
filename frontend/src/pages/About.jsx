@@ -11,7 +11,7 @@ export default function About() {
         support students during the busy midterms season.
       </p>
 
-      <h3 className="mt-5">Our Mission</h3>
+      <h3 className="mt-5">Our Goal</h3>
       <p>
         We designed this platform with <strong>student-centered design</strong>{" "}
         in mind. Our goal is to make studying and collaboration easier, using
