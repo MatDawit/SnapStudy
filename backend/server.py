@@ -8,7 +8,17 @@ from dotenv import load_dotenv
 load_dotenv()
 # render is a backend hosting framework
 app = Flask(__name__)
-CORS(app, origins=[os.environ.get("FRONTEND_ORIGIN", "http://localhost:5173")])
+CORS(
+    app,
+    origins=[
+        os.environ.get("FRONTEND_ORIGIN", "http://localhost:5173"),
+        "https://matdawit.github.io"
+    ],
+    supports_credentials=True,
+    methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"]
+)
+
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")  # Set in Render
 FROM_EMAIL = os.environ.get("GMAIL_USER")  # Verified "From" email in SendGrid
@@ -52,8 +62,9 @@ def send_flashcard():
             "status_code": response.status_code
         })
     except Exception as e:
-        print("SendGrid error:", e)
-        return jsonify({"error": "Failed to send email"}), 500
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/health")
 def health():
