@@ -21,48 +21,48 @@ export default function UploadFile() {
     ];
 
     const handleUpload = async (e) => {
+    //     if (!file) {
+    //         alert("Please select a PDF prior to submitting!");
+    //         return;
+    //     }
+
+    //     const formData = new FormData();
+    //     formData.append("pdfFile", file);
+
+    //     try {
+    //         const response = await fetch("http://localhost:8000/upload", {
+    //         method: "POST",
+    //         body: formData
+    //         });
+
+    //         const data = await response.json();
+    //         console.log("Backend returned:", data);
+
+    //         // You can now navigate or display the JSON
+    //         navigate('/flashcards', { state: { deck: data } });
+    //     } catch (error) {
+    //         console.error(error);
+    //         alert('Upload failed. Please try again.');
+    //     }
+    // };
+        
+        e.preventDefault();
+        
         if (!file) {
             alert("Please select a PDF prior to submitting!");
             return;
         }
 
-        const formData = new FormData();
-        formData.append("pdfFile", file);
-
         try {
-            const response = await fetch("http://localhost:8000/upload", {
-            method: "POST",
-            body: formData
+            // Simulate successful upload
+            navigate('/flashcards', { 
+                state: { 
+                    deck: dummyFlashcards 
+                } 
             });
-
-            const data = await response.json();
-            console.log("Backend returned:", data);
-
-            // You can now navigate or display the JSON
-            navigate('/flashcards', { state: { deck: data } });
         } catch (error) {
-            console.error(error);
             alert('Upload failed. Please try again.');
         }
-    };
-        
-        // e.preventDefault();
-        
-        // if (!file) {
-        //     alert("Please select a PDF prior to submitting!");
-        //     return;
-        // }
-
-        // try {
-        //     // Simulate successful upload
-        //     navigate('/flashcards', { 
-        //         state: { 
-        //             deck: dummyFlashcards 
-        //         } 
-        //     });
-        // } catch (error) {
-        //     alert('Upload failed. Please try again.');
-        // }
     };
     
     return(
