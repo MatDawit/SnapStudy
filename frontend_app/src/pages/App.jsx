@@ -10,6 +10,27 @@ import '../styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+// Home page component
+function HomePage() {
+  return (
+    <>
+      {/* <h1 className="cover-heading display-4">Snap Study</h1> */}
+      <h1 className="glowy-text-animated">Snap Study</h1>
+      <p className="lead">
+        Snap. Study. Succeed!
+      </p>
+      <p className="lead">
+        Say goodbye to boring study sessions! With SnapStudy, just upload your PDFs and watch them magically turn into flashcards. Perfect for cramming, quiz prep, or just flexing your brainpower. 
+        Learn faster, remember more, and make studying actually… fun.
+      </p>
+      <p className="lead">
+        <Link to="/about" className="btn btn-lg btn-light">Learn More</Link>
+        {/* <a href="#" className="btn btn-lg btn-light">Learn more</a> */}
+      </p>
+    </>
+  );
+}
+
 export default function App() {
   const location = useLocation();
 
@@ -42,32 +63,11 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mastfoot mt-auto py-3 bg-dark text-white">
-        <div className="container text-center small">
-          <p className="mb-0">© HackUMBC 2025</p>
+      <footer className="mastfoot mt-auto py-3">
+        <div className="container">
+          <p>© HackUMBC 2025</p>
         </div>
       </footer>
     </div>
-  );
-}
-
-// Home page component
-function HomePage() {
-  return (
-    <>
-      {/* <h1 className="cover-heading display-4">Snap Study</h1> */}
-      <h1 className="glowy-text-animated">Snap Study</h1>
-      <p className="lead">
-        Snap. Study. Succeed!
-      </p>
-      <p className="lead">
-        Say goodbye to boring study sessions! With SnapStudy, just upload your PDFs and watch them magically turn into flashcards. Perfect for cramming, quiz prep, or just flexing your brainpower. 
-        Learn faster, remember more, and make studying actually… fun.
-      </p>
-      <p className="lead">
-        <Link to="/about" className="btn btn-lg btn-light">Learn More</Link>
-        {/* <a href="#" className="btn btn-lg btn-light">Learn more</a> */}
-      </p>
-    </>
   );
 }

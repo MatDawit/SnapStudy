@@ -1,23 +1,21 @@
-src/Navbar.css
-
-src/Navbar.css
-
-/* Nav underline effect like the old cover page */
 .masthead-nav .nav-link {
   font-weight: bold;
   color: rgba(255, 255, 255, 0.75);
   border-bottom: 2px solid transparent;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, color 0.2s;
+  text-decoration: none; /* prevent default underline */
 }
 
 .masthead-nav .nav-link:hover,
 .masthead-nav .nav-link:focus {
-  border-bottom-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.25); /* faint underline on hover */
 }
 
 .masthead-nav .nav-link.active {
   color: #fff;
-  border-bottom-color: #fff;
+  border-bottom-color: #fff; /* strong underline for active */
+  text-underline-offset: 4px; /* gives a little breathing room */
 }
 
 /* Make nav items inline */
@@ -30,16 +28,17 @@ src/Navbar.css
 }
 
 .logo-img {
-  height: 120px;   
-  width: auto;    
+  height: 120px;
+  width: auto;
 }
 
 .glowy-text {
   font-size: 25px;
-  /* font-weight: bold; */
   color: #fff;
   text-shadow: 0 0 5px #007176, 0 0 10px #007176, 0 0 20px #007176;
 }
 
-
-
+/* Optional: smoother collapse transition on mobile */
+.collapsing {
+  transition: height 0.35s ease;
+}
