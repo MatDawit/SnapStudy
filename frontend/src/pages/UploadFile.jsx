@@ -54,7 +54,8 @@ export default function UploadFile() {
               definition: c.answer,
           }));
 
-          console.log("Mapped deck array:", deckArray); // <-- This will log correctly
+          // Save last uploaded deck to sessionStorage
+          sessionStorage.setItem("lastDeck", JSON.stringify(deckArray));
 
           setStatus("Upload successful! Redirecting...");
           navigate('/flashcards', { state: { deck: deckArray } });

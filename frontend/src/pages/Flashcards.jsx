@@ -6,21 +6,26 @@ import FlashcardShare from "../components/FlashcardShare";
 
 export default function Flashcards() {
   const { state } = useLocation();
-  const incoming = state?.deck || [];
+  const incoming = state?.deck || JSON.parse(sessionStorage.getItem("lastDeck") || "[]");
 
   // Normalize deck
-  const ORIGINAL = useMemo(
-    () =>
-      incoming
-        .map((c, i) => ({
-          id: c.id ?? i + 1,
-          topic: c.topic || "General",
-          term: c.term || c.front || "",
-          definition: c.definition || c.back || "",
-        }))
-        .filter((c) => c.term && c.definition),
-    [incoming]
-  );
+  const ORIGINAL = useMemo(() => {
+    if (Array.isArray(incoming)) {
+      return incoming.map((c, i) => ({
+        id: c.id || i + 1,
+        topic: c.topic || "General",
+        term: c.term || c.practice_question,
+        definition: c.definition || c.answer,
+      }));
+    }
+    // fallback if incoming has .qa_pairs
+    return (incoming.qa_pairs || []).map((c, i) => ({
+      id: i + 1,
+      topic: incoming.deck_title || "General",
+      term: c.practice_question,
+      definition: c.answer,
+    }));
+  }, [incoming]);
 
   if (ORIGINAL.length === 0) {
     return (
@@ -145,9 +150,11 @@ export default function Flashcards() {
   // Study screen
   return (
     <>
+      {console.log("Incoming state:", state)}
+      {console.log("ORIGINAL:", ORIGINAL)}
+
       {/* Flip animation styles (scoped) */}
-      <style>{`
-        .flip-scene { perspective: 1000px; }
+      <style>{`.flip-scene { perspective: 1000px; }
         .flip-card {
           position: relative;
           width: 100%;
@@ -164,7 +171,6 @@ export default function Flashcards() {
         }
         .flip-back { transform: rotateY(180deg); }
       `}</style>
-
       <div className="container my-4" style={{ maxWidth: 980 }}>
         {/* Short progress bar (~2in), top-left; moves only on Next */}
         <div className="mb-3" style={{ width: "2in" }}>
