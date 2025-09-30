@@ -19,8 +19,10 @@ export default function UploadFile() {
 
     setLoading(true);
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
     try {
-      const response = await fetch("https://hackumbc2025.onrender.com/api/upload", {
+      const response = await fetch(`${backendUrl}/api/upload`, {
         method: "POST",
         body: formData
       });
