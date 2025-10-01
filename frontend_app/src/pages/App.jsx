@@ -14,7 +14,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 function HomePage() {
   return (
     <>
-      {/* <h1 className="cover-heading display-4">Snap Study</h1> */}
       <h1 className="glowy-text-animated">Snap Study</h1>
       <p className="lead">
         Snap. Study. Succeed!

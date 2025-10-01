@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/Navbar.css';
+import snapstudyLogo from '../assets/snapstudy.svg';
 
 export default function Navbar() {
   return (
@@ -10,13 +11,12 @@ export default function Navbar() {
       {/* Logo + Brand on left */}
       <a className="navbar-brand d-flex align-items-center" href="#">
         <img
-          src="./public/assets/snapstudy.svg"
+          src={snapstudyLogo}
           alt="SnapStudy Logo"
-          //className="d-inline-block logo-img"
-          style={{ height: '140px', marginRight: '-35px', marginLeft: '-30px'}} // small space
+          className="d-inline-block logo-img"
+          style={{ height: '140px', marginRight: '10px'}}
         />
         <span className="text-white fs-4">SnapStudy</span>
-        {/* <span className="glowy-text">SnapStudy</span> */}
       </a>
 
         <nav>
