@@ -22,7 +22,7 @@ export default function UploadFile() {
     const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
     try {
-      const response = await fetch(`${backendUrl}/api/upload`, {
+      const response = await fetch(`https://snapstudy-rgtp.onrender.com/api/upload`, {
         method: "POST",
         body: formData
       });
