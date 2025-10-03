@@ -19,7 +19,7 @@ export default function UploadFile() {
 
     setLoading(true);
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+    const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
     try {
       const response = await fetch(`${backendUrl}/api/upload`, {
