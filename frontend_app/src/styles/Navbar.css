@@ -27,6 +27,13 @@
   margin-left: 0;
 }
 
+/* Keyframes for gradient animation */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .logo-img {
   height: 120px;
   width: auto;
@@ -38,7 +45,54 @@
   text-shadow: 0 0 5px #007176, 0 0 10px #007176, 0 0 20px #007176;
 }
 
-/* Optional: smoother collapse transition on mobile */
-.collapsing {
-  transition: height 0.35s ease;
+/* Mobile styles - minimal fixes */
+@media (max-width: 991.98px) {
+  .logo-img {
+    height: 80px;
+  }
+  
+  .navbar-nav-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(-45deg, #306d5c, #1c3f50, #388788, #031e19);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+  
+  .masthead-nav {
+    flex-direction: column !important;
+  }
+  
+  .masthead-nav > li {
+    display: block;
+    margin: 0.5rem 0;
+  }
+  
+  .masthead-nav .nav-link {
+    text-align: center;
+    padding: 0.75rem;
+    display: block;
+    border-radius: 0.25rem;
+    margin: 0.25rem 0;
+    transition: background-color 0.2s ease;
+  }
+  
+  .masthead-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .logo-img {
+    height: 60px;
+  }
+  
+  .fs-4 {
+    font-size: 1rem !important;
+  }
 }

@@ -41,6 +41,70 @@ def stripText(s):
 '''
 pdf_path is the path to the pdf file -> ex. upload_files/202.pdf
 '''
+def generate_from_pdf_content(pdf_content):
+    """Generate flashcards from PDF content in memory without saving files"""
+    # --- Extract full text from PDF content ---
+    doc = fitz.open(stream=pdf_content, filetype="pdf")
+    full_text = "\n".join([page.get_text("text") for page in doc])
+    doc.close()
+
+    # --- PART A: Summarize slides into JSON ---
+    prompt_a = f"""
+    You are an educational summarizer.
+    Read the lecture slides text below and produce a JSON file in this exact format:
+
+    {{
+      "deck_title": "Course · Topic",
+      "topics": [
+        {{
+          "summary_text": "≤ 800 chars, student-friendly explanation of the concept."
+        }}
+      ]
+    }}
+
+    Rules:
+    - Do not include markdown fences (```).
+    - Do not add commentary outside the JSON.
+    - "deck_title" should be the course name or main topic of the slides.
+    - Each "summary_text" should summarize one concept or slide, concise and clear.
+
+    Here is the lecture text:
+    {full_text}
+    """
+    
+    response_a = my_model.generate_content(prompt_a)
+    clean_a = stripText(response_a.text)
+    decoded_a = clean_a.encode("utf-8").decode("unicode_escape")
+
+    # Load the JSON for quiz generation (no saving to file)
+    data = json.loads(decoded_a)
+
+    # --- PART B: Generate quizzes ---
+    prompt_b = f"""
+    You are an educational quiz generator.
+    Generate practice quizzes in STRICT JSON format like this make them short questions lecture style <= 8 words MCQ and FRQ:
+
+    {{
+      "deck_title": "Course · Topic",
+      "qa_pairs": [
+        {{
+          "practice_question": "One clear question testing this topic.",
+          "answer": "Correct answer, ≤ 2 sentences."
+        }}
+      ]
+    }}
+
+    Here is the lecture JSON to base the quiz on:
+    {json.dumps(data, indent=2)}
+    """
+    response_b = my_model.generate_content(prompt_b)
+    clean_b = stripText(response_b.text)
+    decoded_b = clean_b.encode("utf-8").decode("unicode_escape")
+
+    # Return the quiz JSON as a Python dict to Flask (no file saving)
+    quiz_deck = json.loads(decoded_b)
+    return quiz_deck
+
 def generate_from_pdf(pdf_path):
     # --- Extract full text from PDF ---
     new_pdf_name = pdf_path.split("/")[-1]

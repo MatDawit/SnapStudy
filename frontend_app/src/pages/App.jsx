@@ -64,7 +64,7 @@ export default function App() {
       {/* Footer */}
       <footer className="mastfoot mt-auto py-3">
         <div className="container">
-          <p>© SnapStudy</p>
+          <p>© SnapStudy 2025</p>
         </div>
       </footer>
     </div>

@@ -8,8 +8,28 @@ export default function Flashcards() {
   const savedDecks = JSON.parse(localStorage.getItem("savedDecks") || "[]");
   
 
-  // Get initial cards from state
-  const incoming = state?.deck || [];
+  // Get initial cards from state or sessionStorage fallback
+  const incoming = useMemo(() => {
+    // First try to get from navigation state
+    if (state?.deck && state.deck.length > 0) {
+      return state.deck;
+    }
+    
+    // Fallback to sessionStorage (from recent upload/generation)
+    try {
+      const lastDeck = sessionStorage.getItem('lastDeck');
+      if (lastDeck) {
+        const parsed = JSON.parse(lastDeck);
+        if (parsed && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Could not parse lastDeck from sessionStorage:', e);
+    }
+    
+    return [];
+  }, [state?.deck]);
 
   // Sanitize helper
   const sanitize = (str) =>
@@ -64,8 +84,60 @@ export default function Flashcards() {
   const progressPct = Math.round((progressCount / deck.length) * 100);
 
   // Save deck states
-  const [saveName, setSaveName] = useState(state?.deck_title || "My Flashcards");
-  const [saved, setSaved] = useState(false);
+  const [saveName, setSaveName] = useState(() => {
+    // Try to get deck title from navigation state first
+    if (state?.deck_title) {
+      return state.deck_title;
+    }
+    
+    // Fallback to sessionStorage
+    try {
+      const lastDeckTitle = sessionStorage.getItem('lastDeckTitle');
+      if (lastDeckTitle) {
+        return lastDeckTitle;
+      }
+    } catch (e) {
+      console.warn('Could not get lastDeckTitle from sessionStorage:', e);
+    }
+    
+    return "My Flashcards";
+  });
+  
+  // Check if this deck already exists in archives
+  const existingDeck = useMemo(() => {
+    const savedDecks = JSON.parse(localStorage.getItem("savedDecks") || "[]");
+    return savedDecks.find(deck => 
+      deck.cards && 
+      deck.cards.length === ORIGINAL.length &&
+      deck.cards.every((card, index) => 
+        card.term === ORIGINAL[index]?.term && 
+        card.definition === ORIGINAL[index]?.definition
+      )
+    );
+  }, [ORIGINAL]);
+
+  const [saved, setSaved] = useState(!!existingDeck);
+  
+  // Update save name if deck exists in archives
+  React.useEffect(() => {
+    if (existingDeck) {
+      setSaveName(existingDeck.name);
+    }
+  }, [existingDeck]);
+
+  // Keep sessionStorage updated with current deck data
+  React.useEffect(() => {
+    if (ORIGINAL.length > 0) {
+      sessionStorage.setItem("lastDeck", JSON.stringify(ORIGINAL));
+      sessionStorage.setItem("lastDeckTitle", saveName);
+    }
+  }, [ORIGINAL, saveName]);
+
+  // Email sharing states
+  const [emailAddress, setEmailAddress] = useState("");
+  const [emailSending, setEmailSending] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   // Actions
   const prev = () => { setIdx(i => Math.max(0, i - 1)); setFlip(false); };
@@ -81,16 +153,46 @@ export default function Flashcards() {
     if (!unknowns.length) return restart();
     setDeck(unknowns); setIdx(0); setFlip(false); setStatus({}); setShowResults(false); setProgressCount(0);
   };
+  // Add state for duplicate handling
+  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+  const [duplicateDeck, setDuplicateDeck] = useState(null);
+
   const handleSaveDeck = () => {
     if (!saveName.trim()) return;
-    const slug = saveName.replace(/\s+/g, "-").toLowerCase();
+    
+    const trimmedName = saveName.trim();
     let savedDecks = JSON.parse(localStorage.getItem("savedDecks") || "[]");
+    
+    // Check for existing deck with same name (case-insensitive)
+    const existingDeck = savedDecks.find(d => 
+      d.name.toLowerCase() === trimmedName.toLowerCase()
+    );
 
-    // Remove existing deck with same slug to avoid duplicates
-    savedDecks = savedDecks.filter(d => d.slug !== slug);
+    if (existingDeck) {
+      // Show duplicate confirmation modal
+      setDuplicateDeck(existingDeck);
+      setShowDuplicateModal(true);
+      return;
+    }
+
+    // Save the deck if no duplicates
+    saveDeckToStorage(trimmedName, savedDecks);
+  };
+
+  const saveDeckToStorage = (deckName, savedDecks = null) => {
+    if (!savedDecks) {
+      savedDecks = JSON.parse(localStorage.getItem("savedDecks") || "[]");
+    }
+
+    const slug = deckName.replace(/\s+/g, "-").toLowerCase();
+    
+    // Remove any existing deck with same name/slug
+    savedDecks = savedDecks.filter(d => 
+      d.name.toLowerCase() !== deckName.toLowerCase() && d.slug !== slug
+    );
 
     savedDecks.push({
-      name: saveName,
+      name: deckName,
       date: new Date().toISOString(),
       cards: ORIGINAL,
       slug
@@ -98,6 +200,92 @@ export default function Flashcards() {
 
     localStorage.setItem("savedDecks", JSON.stringify(savedDecks));
     setSaved(true);
+    setShowDuplicateModal(false);
+  };
+
+  const handleReplaceDeck = () => {
+    saveDeckToStorage(saveName.trim());
+  };
+
+  const handleRenameDeck = () => {
+    const timestamp = new Date().toLocaleString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: '2-digit',
+      hour12: true 
+    });
+    const newName = `${saveName.trim()} (${timestamp})`;
+    setSaveName(newName);
+    saveDeckToStorage(newName);
+  };
+
+  const handleSendEmail = async () => {
+    // Check if deck has been saved or exists in archives
+    if (!saved && !existingDeck) {
+      setEmailError("Please save the deck first before sending via email");
+      return;
+    }
+
+    if (!emailAddress.trim()) {
+      setEmailError("Please enter an email address");
+      return;
+    }
+
+    if (!emailAddress.includes("@")) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+
+    setEmailSending(true);
+    setEmailError("");
+
+    try {
+      const knownCount = Object.values(status).filter(v => v === "known").length;
+      const unknownCount = Object.values(status).filter(v => v === "unknown").length;
+      const progressPercent = Math.round((knownCount / ORIGINAL.length) * 100);
+
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      
+      const response = await fetch(`${backendUrl}/api/send-session-data`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: emailAddress,
+          flashcards: ORIGINAL,
+          deck_title: saveName, // Use the saved deck name
+          session_stats: {
+            total_cards: ORIGINAL.length,
+            known_count: knownCount,
+            unknown_count: unknownCount,
+            progress_percent: progressPercent
+          }
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setEmailSent(true);
+        setEmailAddress("");
+      } else {
+        setEmailError(result.error || "Failed to send email");
+      }
+    } catch (error) {
+      console.error("Email sending error:", error);
+      
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        setEmailError("Cannot connect to backend server. Please check if it's running.");
+      } else if (error.message.includes('CORS')) {
+        setEmailError("CORS error - please check backend configuration.");
+      } else {
+        setEmailError(`Network error: ${error.message}. Please try again.`);
+      }
+    } finally {
+      setEmailSending(false);
+    }
   };
 
   // Results data
@@ -136,7 +324,11 @@ export default function Flashcards() {
         {/* Save deck section */}
         <div className="mt-4 p-3 border rounded">
           <h5>Save this deck to your archives</h5>
-          {saved ? (
+          {existingDeck ? (
+            <div className="alert alert-info" role="alert">
+              <strong>📁 Already in Archives:</strong> This deck exists as "{existingDeck.name}"
+            </div>
+          ) : saved ? (
             <p className="text-success">Deck saved successfully!</p>
           ) : (
             <>
@@ -151,6 +343,108 @@ export default function Flashcards() {
             </>
           )}
         </div>
+
+        {/* Email sharing section */}
+        <div className="mt-4 p-3 border rounded">
+          <h5>📧 Email your flashcards & results</h5>
+          <p className="text-muted small">Send your complete flashcard set and session results to any email address</p>
+          
+          {!saved && !existingDeck ? (
+            <div className="alert alert-warning" role="alert">
+              <strong>⚠️ Save Required:</strong> Please save this deck to your archives first before sending via email.
+            </div>
+          ) : emailSent ? (
+            <div className="alert alert-success" role="alert">
+              <strong>✅ Email sent successfully!</strong> Your flashcard deck "{saveName}" has been delivered.
+            </div>
+          ) : (
+            <>
+              <div className="input-group mb-2">
+                <input
+                  type="email"
+                  className="form-control"
+                  value={emailAddress}
+                  onChange={e => setEmailAddress(e.target.value)}
+                  placeholder="Enter email address"
+                  disabled={emailSending || (!saved && !existingDeck)}
+                />
+                <button 
+                  className="btn btn-primary" 
+                  onClick={handleSendEmail}
+                  disabled={emailSending || !emailAddress.trim() || (!saved && !existingDeck)}
+                >
+                  {emailSending ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      Sending...
+                    </>
+                  ) : (
+                    'Send Email'
+                  )}
+                </button>
+              </div>
+              
+              {emailError && (
+                <div className="alert alert-danger" role="alert">
+                  {emailError}
+                </div>
+              )}
+              
+              <small className="text-muted">
+                Will send "{saveName}" with {ORIGINAL.length} flashcards, your session progress ({Math.round((Object.values(status).filter(v => v === "known").length / ORIGINAL.length) * 100)}% mastered), and detailed results.
+              </small>
+            </>
+          )}
+        </div>
+
+        {/* Duplicate Name Confirmation Modal */}
+        {showDuplicateModal && (
+          <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} tabIndex="-1">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title text-dark">⚠️ Duplicate Deck Name</h5>
+                </div>
+                <div className="modal-body text-dark">
+                  <p>A flashcard set named <strong>"{saveName}"</strong> already exists in your archives.</p>
+                  <p>What would you like to do?</p>
+                  
+                  {duplicateDeck && (
+                    <div className="alert alert-info">
+                      <small>
+                        <strong>Existing deck:</strong> "{duplicateDeck.name}"<br/>
+                        <strong>Created:</strong> {new Date(duplicateDeck.date).toLocaleDateString()}
+                      </small>
+                    </div>
+                  )}
+                </div>
+                <div className="modal-footer">
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary" 
+                    onClick={() => setShowDuplicateModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-warning" 
+                    onClick={handleReplaceDeck}
+                  >
+                    Replace Existing
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary" 
+                    onClick={handleRenameDeck}
+                  >
+                    Save with Timestamp
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="d-flex gap-2 mt-4">
           <button className="btn btn-light" onClick={retakeUnknowns}>Retake Unknowns</button>

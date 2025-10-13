@@ -19,10 +19,10 @@ export default function UploadFile() {
 
     setLoading(true);
 
-    const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
     try {
-      const response = await fetch(`https://snapstudy-rgtp.onrender.com/api/upload`, {
+      const response = await fetch(`${backendUrl}/api/upload`, {
         method: "POST",
         body: formData
       });
@@ -61,7 +61,7 @@ export default function UploadFile() {
 
       // Save for immediate study (sessionStorage)
       sessionStorage.setItem("lastDeck", JSON.stringify(deckArray));
-
+      sessionStorage.setItem("lastDeckTitle", deckName);
 
       setStatus("Upload successful! Redirecting...");
       navigate('/flashcards', { state: { deck: deckArray, deck_title: deckName } });
