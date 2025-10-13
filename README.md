@@ -42,8 +42,8 @@ SnapStudy is a full-stack web application that revolutionizes the way students c
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/MatDawit/hackUMBC2025.git
-   cd hackUMBC2025
+   git clone https://github.com/MatDawit/SnapStudy.git
+   cd SnapStudy
    ```
 
 2. **Set up the backend**
