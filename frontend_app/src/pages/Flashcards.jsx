@@ -341,7 +341,9 @@ export default function Flashcards() {
               <strong>📁 Already in Archives:</strong> This deck exists as "{existingDeck.name}"
             </div>
           ) : saved ? (
-            <p className="text-success">Deck saved successfully!</p>
+            <div className="alert alert-success" role="alert">
+              <strong>✅ Deck saved successfully!</strong> You can now share this deck via email.
+            </div>
           ) : (
             <>
               <input
@@ -368,6 +370,8 @@ export default function Flashcards() {
           ) : emailSent ? (
             <div className="alert alert-success" role="alert">
               <strong>✅ Email sent successfully!</strong> Your flashcard deck "{saveName}" has been delivered.
+              <br />
+              <small className="text-muted">📧 <strong>Don't forget to check your spam/junk folder</strong> if you don't see the email in your inbox.</small>
             </div>
           ) : (
             <>
