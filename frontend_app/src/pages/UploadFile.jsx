@@ -19,7 +19,19 @@ export default function UploadFile() {
 
     setLoading(true);
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+    // Determine backend URL - use production URL when deployed to GitHub Pages
+    const getBackendUrl = () => {
+      // If deployed to GitHub Pages (production), use Render URL
+      if (window.location.hostname === 'matdawit.github.io') {
+        return 'https://snapstudy-rgtp.onrender.com';
+      }
+      // Otherwise use environment variable or localhost for development
+      return import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+    };
+    
+    const backendUrl = getBackendUrl();
+    console.log('Detected hostname:', window.location.hostname);
+    console.log('Using backend URL:', backendUrl);
 
     try {
       const response = await fetch(`${backendUrl}/api/upload`, {
